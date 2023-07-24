@@ -10,6 +10,7 @@ import ru.practicum.model.Hit;
 import ru.practicum.model.Stats;
 import ru.practicum.repository.HitRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,42 +26,34 @@ public class StatsServiceImpl implements StatsService {
     }
 
     @Override
-    public List<StatsDto> getStatsWithUris(String start, String end, String[] uris, boolean unique) {
+    public List<StatsDto> getStatsWithUris(LocalDateTime start, LocalDateTime end, String[] uris, boolean unique) {
         List<StatsDto> statsByRequest = new ArrayList<>();
         if (!(unique)) {
-            if (hitRepository.findAllNonUniqueVisitsWithUris(start, end, uris) != null) {
-                for (Stats stats : hitRepository.findAllNonUniqueVisitsWithUris(start, end, uris)) {
-                    StatsDto statsDto = StatsMapper.toStatsDto(stats);
-                    statsByRequest.add(statsDto);
-                }
+            for (Stats stats : hitRepository.findAllNonUniqueVisitsWithUris(start, end, uris)) {
+                StatsDto statsDto = StatsMapper.toStatsDto(stats);
+                statsByRequest.add(statsDto);
             }
         } else {
-            if (hitRepository.findAllUniqueVisitsWithUris(start, end, uris) != null) {
-                for (Stats stats : hitRepository.findAllUniqueVisitsWithUris(start, end, uris)) {
-                    StatsDto statsDto = StatsMapper.toStatsDto(stats);
-                    statsByRequest.add(statsDto);
-                }
+            for (Stats stats : hitRepository.findAllUniqueVisitsWithUris(start, end, uris)) {
+                StatsDto statsDto = StatsMapper.toStatsDto(stats);
+                statsByRequest.add(statsDto);
             }
         }
         return statsByRequest;
     }
 
     @Override
-    public List<StatsDto> getStatsWithoutUris(String start, String end, boolean unique) {
+    public List<StatsDto> getStatsWithoutUris(LocalDateTime start, LocalDateTime end, boolean unique) {
         List<StatsDto> statsByRequest = new ArrayList<>();
         if (!(unique)) {
-            if (hitRepository.findAllNonUniqueVisitsWithoutUris(start, end) != null) {
-                for (Stats stats : hitRepository.findAllNonUniqueVisitsWithoutUris(start, end)) {
-                    StatsDto statsDto = StatsMapper.toStatsDto(stats);
-                    statsByRequest.add(statsDto);
-                }
+            for (Stats stats : hitRepository.findAllNonUniqueVisitsWithoutUris(start, end)) {
+                StatsDto statsDto = StatsMapper.toStatsDto(stats);
+                statsByRequest.add(statsDto);
             }
         } else {
-            if (hitRepository.findAllUniqueVisitsWithoutUris(start, end) != null) {
-                for (Stats stats : hitRepository.findAllUniqueVisitsWithoutUris(start, end)) {
-                    StatsDto statsDto = StatsMapper.toStatsDto(stats);
-                    statsByRequest.add(statsDto);
-                }
+            for (Stats stats : hitRepository.findAllUniqueVisitsWithoutUris(start, end)) {
+                StatsDto statsDto = StatsMapper.toStatsDto(stats);
+                statsByRequest.add(statsDto);
             }
         }
         return statsByRequest;

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -19,5 +20,5 @@ public class Hit {
     private String uri;
     private String ip;
     @Column(name = "time_stamp")
-    private String timestamp;
+    private LocalDateTime timestamp;
 }
