@@ -2,18 +2,22 @@ package ru.practicum.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ValidationException;
+import java.time.DateTimeException;
 
 @RestControllerAdvice
 @Slf4j
-public class ErrorHandler {
-    @ExceptionHandler
+public class StatsErrorHandler {
+    @ExceptionHandler({ValidationException.class,
+            DateTimeException.class,
+            MissingServletRequestParameterException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse badRequestHandler(final ValidationException e) {
+    public ErrorResponse badRequestHandler(final Exception e) {
         log.info("400: {}", e.getMessage(), e);
         return new ErrorResponse(e.getMessage());
     }

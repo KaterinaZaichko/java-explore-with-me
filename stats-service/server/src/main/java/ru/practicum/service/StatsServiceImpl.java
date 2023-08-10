@@ -10,6 +10,7 @@ import ru.practicum.model.Hit;
 import ru.practicum.model.Stats;
 import ru.practicum.repository.HitRepository;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,9 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public List<StatsDto> getStatsWithUris(LocalDateTime start, LocalDateTime end, String[] uris, boolean unique) {
+        if (start.isAfter(end)) {
+            throw new DateTimeException("Start is after end");
+        }
         List<StatsDto> statsByRequest = new ArrayList<>();
         if (!(unique)) {
             for (Stats stats : hitRepository.findAllNonUniqueVisitsWithUris(start, end, uris)) {
