@@ -44,5 +44,6 @@ public interface EventService {
     EventFullDto getEventById(long id);
 
     long getConfirmedRequestsCount(Event event);
+
     long getViews(Event event);
 }

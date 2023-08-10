@@ -401,7 +401,7 @@ public class EventServiceImpl implements EventService {
                 new String[]{"/events/" + event.getId()}, true).getBody();
         List<StatsDto> stats = new ObjectMapper().convertValue(object, new TypeReference<>() {
         });
-        if(!stats.isEmpty()) {
+        if (!stats.isEmpty()) {
             return stats.get(0).getHits();
         }
         return 0;
