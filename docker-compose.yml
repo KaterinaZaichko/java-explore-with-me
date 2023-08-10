@@ -25,10 +25,10 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
       - "/etc/timezone:/etc/timezone:ro"
 
-  main-service:
+  ewm-service:
     build: main-service
     image: main_service_image
-    container_name: main-service
+    container_name: ewv-service
     ports:
       - "8080:8080"
     depends_on:
