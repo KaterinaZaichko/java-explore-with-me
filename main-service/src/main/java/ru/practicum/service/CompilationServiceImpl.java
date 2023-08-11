@@ -31,36 +31,19 @@ public class CompilationServiceImpl implements CompilationService {
         Pageable pageWithSomeElements = PageRequest.of(from > 0 ? from / size : 0, size);
         List<CompilationDto> compilations = new ArrayList<>();
         List<EventShortDto> events = new ArrayList<>();
-        if (pinned != null && pinned.equals(true)) {
-            for (Compilation compilation : compilationRepository.findAllByPinned(pinned, pageWithSomeElements)) {
-                for (Long id : eventRepository.findByCompilationId(compilation.getId())) {
-                    if (eventRepository.existsById(id)) {
-                        Event event = eventRepository.findById(id).get();
-                        EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
-                        eventShortDto.setConfirmedRequests(eventService.getConfirmedRequestsCount(event));
-                        eventShortDto.setViews(eventService.getViews(event));
-                        events.add(eventShortDto);
-                    }
+        for (Compilation compilation : compilationRepository.findAllByPinned(pinned, pageWithSomeElements)) {
+            for (Long id : eventRepository.findByCompilationId(compilation.getId())) {
+                if (eventRepository.existsById(id)) {
+                    Event event = eventRepository.findById(id).get();
+                    EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
+                    eventShortDto.setConfirmedRequests(eventService.getConfirmedRequestsCount(event));
+                    eventShortDto.setViews(eventService.getViews(event));
+                    events.add(eventShortDto);
                 }
-                CompilationDto compilationDto = CompilationMapper.toCompilationDto(compilation);
-                compilationDto.setEvents(events);
-                compilations.add(compilationDto);
             }
-        } else {
-            for (Compilation compilation : compilationRepository.findAll(pageWithSomeElements)) {
-                for (Long id : eventRepository.findByCompilationId(compilation.getId())) {
-                    if (eventRepository.existsById(id)) {
-                        Event event = eventRepository.findById(id).get();
-                        EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
-                        eventShortDto.setConfirmedRequests(eventService.getConfirmedRequestsCount(event));
-                        eventShortDto.setViews(eventService.getViews(event));
-                        events.add(eventShortDto);
-                    }
-                }
-                CompilationDto compilationDto = CompilationMapper.toCompilationDto(compilation);
-                compilationDto.setEvents(events);
-                compilations.add(compilationDto);
-            }
+            CompilationDto compilationDto = CompilationMapper.toCompilationDto(compilation);
+            compilationDto.setEvents(events);
+            compilations.add(compilationDto);
         }
         return compilations;
     }
