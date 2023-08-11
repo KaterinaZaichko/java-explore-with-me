@@ -33,14 +33,11 @@ public class CompilationServiceImpl implements CompilationService {
         List<EventShortDto> events = new ArrayList<>();
         if (pinned != null) {
             for (Compilation compilation : compilationRepository.findAllByPinned(pinned, pageWithSomeElements)) {
-                for (Long id : eventRepository.findByCompilationId(compilation.getId())) {
-                    if (eventRepository.existsById(id)) {
-                        Event event = eventRepository.findById(id).get();
-                        EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
-                        eventShortDto.setConfirmedRequests(eventService.getConfirmedRequestsCount(event));
-                        eventShortDto.setViews(eventService.getViews(event));
-                        events.add(eventShortDto);
-                    }
+                for (Event event : eventRepository.findByCompilationId(compilation.getId())) {
+                    EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
+                    eventShortDto.setConfirmedRequests(eventService.getConfirmedRequestsCount(event));
+                    eventShortDto.setViews(eventService.getViews(event));
+                    events.add(eventShortDto);
                 }
                 CompilationDto compilationDto = CompilationMapper.toCompilationDto(compilation);
                 compilationDto.setEvents(events);
@@ -48,14 +45,11 @@ public class CompilationServiceImpl implements CompilationService {
             }
         } else {
             for (Compilation compilation : compilationRepository.findAll(pageWithSomeElements)) {
-                for (Long id : eventRepository.findByCompilationId(compilation.getId())) {
-                    if (eventRepository.existsById(id)) {
-                        Event event = eventRepository.findById(id).get();
-                        EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
-                        eventShortDto.setConfirmedRequests(eventService.getConfirmedRequestsCount(event));
-                        eventShortDto.setViews(eventService.getViews(event));
-                        events.add(eventShortDto);
-                    }
+                for (Event event : eventRepository.findByCompilationId(compilation.getId())) {
+                    EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
+                    eventShortDto.setConfirmedRequests(eventService.getConfirmedRequestsCount(event));
+                    eventShortDto.setViews(eventService.getViews(event));
+                    events.add(eventShortDto);
                 }
                 CompilationDto compilationDto = CompilationMapper.toCompilationDto(compilation);
                 compilationDto.setEvents(events);
@@ -71,14 +65,11 @@ public class CompilationServiceImpl implements CompilationService {
                 .orElseThrow(() -> new CompilationNotFoundException(
                         String.format("Compilation with id=%d was not found", compId))));
         List<EventShortDto> events = new ArrayList<>();
-        for (Long id : eventRepository.findByCompilationId(compId)) {
-            if (eventRepository.existsById(id)) {
-                Event event = eventRepository.findById(id).get();
-                EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
-                eventShortDto.setConfirmedRequests(eventService.getConfirmedRequestsCount(event));
-                eventShortDto.setViews(eventService.getViews(event));
-                events.add(eventShortDto);
-            }
+        for (Event event : eventRepository.findByCompilationId(compId)) {
+            EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
+            eventShortDto.setConfirmedRequests(eventService.getConfirmedRequestsCount(event));
+            eventShortDto.setViews(eventService.getViews(event));
+            events.add(eventShortDto);
         }
         compilationDto.setEvents(events);
         return compilationDto;

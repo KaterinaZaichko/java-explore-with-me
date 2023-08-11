@@ -43,6 +43,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     List<Event> findByCategory(Category category);
 
-    @Query(value = "select e_id from event_compilation where c_id = ?1", nativeQuery = true)
-    List<Long> findByCompilationId(long compId);
+    @Query(value = "select * from events as e " +
+            "join event_compilation as ec ON e.id=ec.e_id " +
+            "where ec.c_id = ?1", nativeQuery = true)
+    List<Event> findByCompilationId(long compId);
 }
