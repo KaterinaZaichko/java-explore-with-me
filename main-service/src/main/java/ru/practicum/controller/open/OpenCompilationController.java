@@ -18,7 +18,7 @@ public class OpenCompilationController {
     private final CompilationService compilationService;
 
     @GetMapping
-    public ResponseEntity<List<CompilationDto>> getCompilations(@RequestParam Boolean pinned,
+    public ResponseEntity<List<CompilationDto>> getCompilations(@RequestParam(required = false) Boolean pinned,
                                                                 @RequestParam(defaultValue = "0") int from,
                                                                 @RequestParam(defaultValue = "10") int size) {
         log.info("Getting compilations");

@@ -31,19 +31,36 @@ public class CompilationServiceImpl implements CompilationService {
         Pageable pageWithSomeElements = PageRequest.of(from > 0 ? from / size : 0, size);
         List<CompilationDto> compilations = new ArrayList<>();
         List<EventShortDto> events = new ArrayList<>();
-        for (Compilation compilation : compilationRepository.findAllByPinned(pinned, pageWithSomeElements)) {
-            for (Long id : eventRepository.findByCompilationId(compilation.getId())) {
-                if (eventRepository.existsById(id)) {
-                    Event event = eventRepository.findById(id).get();
-                    EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
-                    eventShortDto.setConfirmedRequests(eventService.getConfirmedRequestsCount(event));
-                    eventShortDto.setViews(eventService.getViews(event));
-                    events.add(eventShortDto);
+        if (pinned != null) {
+            for (Compilation compilation : compilationRepository.findAllByPinned(pinned, pageWithSomeElements)) {
+                for (Long id : eventRepository.findByCompilationId(compilation.getId())) {
+                    if (eventRepository.existsById(id)) {
+                        Event event = eventRepository.findById(id).get();
+                        EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
+                        eventShortDto.setConfirmedRequests(eventService.getConfirmedRequestsCount(event));
+                        eventShortDto.setViews(eventService.getViews(event));
+                        events.add(eventShortDto);
+                    }
                 }
+                CompilationDto compilationDto = CompilationMapper.toCompilationDto(compilation);
+                compilationDto.setEvents(events);
+                compilations.add(compilationDto);
             }
-            CompilationDto compilationDto = CompilationMapper.toCompilationDto(compilation);
-            compilationDto.setEvents(events);
-            compilations.add(compilationDto);
+        } else {
+            for (Compilation compilation : compilationRepository.findAll(pageWithSomeElements)) {
+                for (Long id : eventRepository.findByCompilationId(compilation.getId())) {
+                    if (eventRepository.existsById(id)) {
+                        Event event = eventRepository.findById(id).get();
+                        EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
+                        eventShortDto.setConfirmedRequests(eventService.getConfirmedRequestsCount(event));
+                        eventShortDto.setViews(eventService.getViews(event));
+                        events.add(eventShortDto);
+                    }
+                }
+                CompilationDto compilationDto = CompilationMapper.toCompilationDto(compilation);
+                compilationDto.setEvents(events);
+                compilations.add(compilationDto);
+            }
         }
         return compilations;
     }
@@ -71,7 +88,11 @@ public class CompilationServiceImpl implements CompilationService {
     public CompilationDto save(NewCompilationDto newCompilationDto) {
         List<Event> events = new ArrayList<>();
         if (newCompilationDto.getEvents() != null) {
-            events.addAll(eventRepository.findByIdIn(newCompilationDto.getEvents()));
+            for (Long id : newCompilationDto.getEvents()) {
+                if (eventRepository.existsById(id)) {
+                    events.add(eventRepository.findById(id).get());
+                }
+            }
         }
         Compilation compilation = CompilationMapper.toCompilation(newCompilationDto);
         compilation.setEvents(events);
@@ -89,9 +110,12 @@ public class CompilationServiceImpl implements CompilationService {
 
     @Override
     public void delete(long compId) {
-        compilationRepository.delete(compilationRepository.findById(compId)
-                .orElseThrow(() -> new CompilationNotFoundException(
-                        String.format("Compilation with id=%d was not found", compId))));
+        if (compilationRepository.existsById(compId)) {
+            compilationRepository.deleteById(compId);
+        } else {
+            throw new CompilationNotFoundException(
+                    String.format("Compilation with id=%d was not found", compId));
+        }
     }
 
     @Override
