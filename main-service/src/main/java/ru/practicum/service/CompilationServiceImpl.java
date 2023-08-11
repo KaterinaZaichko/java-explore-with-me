@@ -31,7 +31,7 @@ public class CompilationServiceImpl implements CompilationService {
         Pageable pageWithSomeElements = PageRequest.of(from > 0 ? from / size : 0, size);
         List<CompilationDto> compilations = new ArrayList<>();
         List<EventShortDto> events = new ArrayList<>();
-        if (pinned != null) {
+        if (pinned != null && pinned.equals(true)) {
             for (Compilation compilation : compilationRepository.findAllByPinned(pinned, pageWithSomeElements)) {
                 for (Long id : eventRepository.findByCompilationId(compilation.getId())) {
                     if (eventRepository.existsById(id)) {
