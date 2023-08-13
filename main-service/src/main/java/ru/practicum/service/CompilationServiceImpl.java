@@ -7,17 +7,13 @@ import org.springframework.stereotype.Service;
 import ru.practicum.dto.compilation.CompilationDto;
 import ru.practicum.dto.compilation.NewCompilationDto;
 import ru.practicum.dto.compilation.UpdateCompilationRequest;
-import ru.practicum.dto.event.EventShortDto;
 import ru.practicum.exception.EntityNotFoundException;
 import ru.practicum.mapper.CompilationMapper;
 import ru.practicum.model.Compilation;
 import ru.practicum.repository.CompilationRepository;
 import ru.practicum.repository.EventRepository;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,8 +26,7 @@ public class CompilationServiceImpl implements CompilationService {
     @Override
     public List<CompilationDto> getAll(Boolean pinned, int from, int size) {
         Pageable pageWithSomeElements = PageRequest.of(from > 0 ? from / size : 0, size);
-        List<CompilationDto> compilations = new ArrayList<>();
-        Set<EventShortDto> events = new HashSet<>();
+        List<CompilationDto> compilations;
         if (pinned != null) {
             compilations = compilationRepository.findAllByPinned(pinned, pageWithSomeElements).stream()
                     .map(CompilationMapper::toCompilationDto)
