@@ -47,7 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(long catId) {
         if (categoryRepository.existsById(catId)) {
-            if (eventRepository.findByCategoryId(catId).isEmpty()) {
+            if (!eventRepository.existsByCategory(catId)) {
                 categoryRepository.deleteById(catId);
             } else {
                 throw new CategoryVoidViolationException("The category is not empty");
@@ -57,12 +57,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto update(long catId, CategoryDto categoryDto) {
-        if (categoryRepository.existsById(catId)) {
-            Category updatedCategory = categoryRepository.findById(catId).get();
-            updatedCategory.setName(categoryDto.getName());
-            return CategoryMapper.toCategoryDto(categoryRepository.save(updatedCategory));
-        } else {
-            throw new EntityNotFoundException(String.format("Category with id=%d was not found", catId));
-        }
+        Category updatedCategory = categoryRepository.findById(catId).orElseThrow(() -> new EntityNotFoundException(
+                String.format("Category with id=%d was not found", catId)));
+        updatedCategory.setName(categoryDto.getName());
+        return CategoryMapper.toCategoryDto(categoryRepository.save(updatedCategory));
     }
 }

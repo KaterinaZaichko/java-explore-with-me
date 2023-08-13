@@ -42,8 +42,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     Set<Event> findByIdIn(Set<Long> events);
 
-    @Query(value = "select * from events as e " +
-            "join categories as c ON c.id=e.category_id " +
-            "where e.category_id = ?1", nativeQuery = true)
-    List<Event> findByCategoryId(long catId);
+    @Query("select case when count(e)> 0 then true else false end " +
+            "from Event e " +
+            "join e.category cat " +
+            "where cat.id = ?1")
+    boolean existsByCategory(long catId);
 }

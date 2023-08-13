@@ -32,7 +32,7 @@ public class EventServiceImpl implements EventService {
     private final UserRepository userRepository;
     private final ParticipationRequestRepository participationRequestRepository;
     private final StatsClient statsClient;
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @Override
     public List<EventShortDto> getEventsByUserId(long userId, int from, int size) {
@@ -45,8 +45,7 @@ public class EventServiceImpl implements EventService {
         Map<String, Long> views = getViews(events);
         for (Event event : events) {
             EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
-            eventShortDto.setConfirmedRequests(
-                    confirmedRequests.get(event) != null ? confirmedRequests.get(event) : 0);
+            eventShortDto.setConfirmedRequests(confirmedRequests.getOrDefault(event, 0L));
             eventShortDto.setViews(views.get("/events/" + event.getId()));
             eventShortDtos.add(eventShortDto);
         }
@@ -78,8 +77,7 @@ public class EventServiceImpl implements EventService {
         }
         Event event = eventRepository.findByIdAndInitiator(eventId, initiator);
         EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
-        eventFullDto.setConfirmedRequests(getConfirmedRequestsCount(List.of(event)).get(event) != null
-                ? getConfirmedRequestsCount(List.of(event)).get(event) : 0);
+        eventFullDto.setConfirmedRequests(getConfirmedRequestsCount(List.of(event)).getOrDefault(event, 0L));
         eventFullDto.setViews(getViews(List.of(event)).get("/events/" + event.getId()));
         return eventFullDto;
     }
@@ -227,11 +225,7 @@ public class EventServiceImpl implements EventService {
         Pageable pageWithSomeElements = PageRequest.of(from > 0 ? from / size : 0, size);
         List<User> usersList = new ArrayList<>();
         if (users != null) {
-            for (Long id : users) {
-                if (userRepository.existsById(id)) {
-                    usersList.add(userRepository.findById(id).get());
-                }
-            }
+            usersList = userRepository.findAllByIdIn(users);
         }
         List<String> statesList = new ArrayList<>();
         if (states != null) {
@@ -239,11 +233,7 @@ public class EventServiceImpl implements EventService {
         }
         List<Category> categoriesList = new ArrayList<>();
         if (categories != null) {
-            for (Long id : categories) {
-                if (categoryRepository.existsById(id)) {
-                    categoriesList.add(categoryRepository.findById(id).get());
-                }
-            }
+            categoryRepository.findByIdIn(categories);
         }
         if (rangeStart == null) {
             rangeStart = LocalDateTime.now();
@@ -258,8 +248,7 @@ public class EventServiceImpl implements EventService {
         Map<String, Long> views = getViews(events);
         for (Event event : events) {
             EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
-            eventFullDto.setConfirmedRequests(
-                    confirmedRequests.get(event) != null ? confirmedRequests.get(event) : 0);
+            eventFullDto.setConfirmedRequests(confirmedRequests.getOrDefault(event, 0L));
             eventFullDto.setViews(views.get("/events/" + event.getId()));
             eventFullDtos.add(eventFullDto);
         }
@@ -364,8 +353,7 @@ public class EventServiceImpl implements EventService {
             for (Event event : events) {
                 if (event.getParticipantLimit() < confirmedRequests.get(event)) {
                     EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
-                    eventShortDto.setConfirmedRequests(
-                            confirmedRequests.get(event) != null ? confirmedRequests.get(event) : 0);
+                    eventShortDto.setConfirmedRequests(confirmedRequests.getOrDefault(event, 0L));
                     eventShortDto.setViews(views.get("/events/" + event.getId()));
                     eventShortDtos.add(eventShortDto);
                 }
@@ -373,8 +361,7 @@ public class EventServiceImpl implements EventService {
         } else {
             for (Event event : events) {
                 EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
-                eventShortDto.setConfirmedRequests(
-                        confirmedRequests.get(event) != null ? confirmedRequests.get(event) : 0);
+                eventShortDto.setConfirmedRequests(confirmedRequests.getOrDefault(event, 0L));
                 eventShortDto.setViews(views.get("/events/" + event.getId()));
                 eventShortDtos.add(eventShortDto);
             }
@@ -396,8 +383,7 @@ public class EventServiceImpl implements EventService {
             throw new EntityNotFoundException(String.format("Event with id=%d was not found", id));
         }
         EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
-        eventFullDto.setConfirmedRequests(getConfirmedRequestsCount(List.of(event)).get(event) != null
-                ? getConfirmedRequestsCount(List.of(event)).get(event) : 0);
+        eventFullDto.setConfirmedRequests(getConfirmedRequestsCount(List.of(event)).getOrDefault(event, 0L));
         eventFullDto.setViews(getViews(List.of(event)).get("/events/" + event.getId()));
         return eventFullDto;
     }

@@ -19,7 +19,7 @@ public class EventMapper {
                 .annotation(newEventDto.getAnnotation())
                 .createdOn(LocalDateTime.now())
                 .description(newEventDto.getDescription())
-                .eventDate(LocalDateTime.parse(newEventDto.getEventDate(), DateTimeConstant.dtFormatter))
+                .eventDate(newEventDto.getEventDate())
                 .location(LocationMapper.toLocation(newEventDto.getLocation()))
                 .paid(newEventDto.isPaid())
                 .participantLimit(newEventDto.getParticipantLimit())
