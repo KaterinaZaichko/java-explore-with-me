@@ -1,14 +1,13 @@
 package ru.practicum.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -23,7 +22,8 @@ public class Compilation {
             name = "event_compilation",
             joinColumns = @JoinColumn(name = "c_id"),
             inverseJoinColumns = @JoinColumn(name = "e_id"))
-    private List<Event> events;
+    @ToString.Exclude
+    private Set<Event> events;
     private Boolean pinned;
     private String title;
 }

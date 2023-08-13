@@ -6,12 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.practicum.dto.category.CategoryDto;
 import ru.practicum.dto.category.NewCategoryDto;
-import ru.practicum.exception.CategoryNotFoundException;
 import ru.practicum.exception.CategoryVoidViolationException;
-import ru.practicum.exception.NameUniquenessViolationException;
+import ru.practicum.exception.EntityNotFoundException;
 import ru.practicum.mapper.CategoryMapper;
 import ru.practicum.model.Category;
-import ru.practicum.model.Event;
 import ru.practicum.repository.CategoryRepository;
 import ru.practicum.repository.EventRepository;
 
@@ -37,26 +35,19 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto getById(long catId) {
         return CategoryMapper.toCategoryDto(categoryRepository.findById(catId)
-                .orElseThrow(() -> new CategoryNotFoundException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         String.format("Category with id=%d was not found", catId))));
     }
 
     @Override
     public CategoryDto save(NewCategoryDto newCategoryDto) {
-        if (categoryRepository.findByName(newCategoryDto.getName()) != null) {
-            throw new NameUniquenessViolationException(
-                    String.format("Name %s already exists", newCategoryDto.getName()));
-        }
-        Category category = CategoryMapper.toCategory(newCategoryDto);
-        return CategoryMapper.toCategoryDto(categoryRepository.save(category));
+        return CategoryMapper.toCategoryDto(categoryRepository.save(CategoryMapper.toCategory(newCategoryDto)));
     }
 
     @Override
     public void delete(long catId) {
         if (categoryRepository.existsById(catId)) {
-            Category category = categoryRepository.findById(catId).get();
-            List<Event> events = eventRepository.findByCategory(category);
-            if (events.isEmpty()) {
+            if (eventRepository.findByCategoryId(catId).isEmpty()) {
                 categoryRepository.deleteById(catId);
             } else {
                 throw new CategoryVoidViolationException("The category is not empty");
@@ -68,15 +59,10 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto update(long catId, CategoryDto categoryDto) {
         if (categoryRepository.existsById(catId)) {
             Category updatedCategory = categoryRepository.findById(catId).get();
-            if (categoryRepository.findByIdNotAndName(catId, categoryDto.getName()) != null) {
-                throw new NameUniquenessViolationException(
-                        String.format("Name %s already exists", categoryDto.getName()));
-            } else {
-                updatedCategory.setName(categoryDto.getName());
-            }
+            updatedCategory.setName(categoryDto.getName());
             return CategoryMapper.toCategoryDto(categoryRepository.save(updatedCategory));
         } else {
-            throw new CategoryNotFoundException(String.format("Category with id=%d was not found", catId));
+            throw new EntityNotFoundException(String.format("Category with id=%d was not found", catId));
         }
     }
 }

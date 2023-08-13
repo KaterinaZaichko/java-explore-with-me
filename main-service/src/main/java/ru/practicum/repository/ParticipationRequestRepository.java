@@ -1,10 +1,8 @@
 package ru.practicum.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.practicum.model.Event;
-import ru.practicum.model.ParticipationRequest;
-import ru.practicum.model.State;
-import ru.practicum.model.User;
+import org.springframework.data.jpa.repository.Query;
+import ru.practicum.model.*;
 
 import java.util.List;
 
@@ -18,4 +16,10 @@ public interface ParticipationRequestRepository extends JpaRepository<Participat
     List<ParticipationRequest> findAllByEventAndStatus(Event event, State status);
 
     List<ParticipationRequest> findAllByRequester(User requester);
+
+    @Query("select new ru.practicum.model.ConfirmedRequestsCount(pr.event, count(pr.id)) " +
+            "from ParticipationRequest pr " +
+            "where pr.event IN ?1 and pr.status = ?2 " +
+            "group by pr.event")
+    List<ConfirmedRequestsCount> findAllByEventInAndStatus(List<Event> events, State status);
 }

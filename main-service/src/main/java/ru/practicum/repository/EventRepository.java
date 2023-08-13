@@ -9,6 +9,7 @@ import ru.practicum.model.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findAllByInitiator(User initiator, Pageable pageable);
@@ -33,18 +34,16 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "and (?3 is null or e.paid = ?3) " +
             "and e.event_date between ?4 and ?5", nativeQuery = true)
     List<Event> findAllByAnnotationOrDescriptionAndCategoryInAndPaidAndEventDateBetween(String text,
-                                                                                        List<Category> categories,
+                                                                                        Set<Category> categories,
                                                                                         Boolean paid,
                                                                                         LocalDateTime rangeStart,
                                                                                         LocalDateTime rangeEnd,
                                                                                         Pageable pageWithSomeElements);
 
-    List<Event> findByIdIn(List<Long> events);
-
-    List<Event> findByCategory(Category category);
+    Set<Event> findByIdIn(Set<Long> events);
 
     @Query(value = "select * from events as e " +
-            "join event_compilation as ec ON e.id=ec.e_id " +
-            "where ec.c_id = ?1", nativeQuery = true)
-    List<Event> findByCompilationId(long compId);
+            "join categories as c ON c.id=e.category_id " +
+            "where e.category_id = ?1", nativeQuery = true)
+    List<Event> findByCategoryId(long catId);
 }

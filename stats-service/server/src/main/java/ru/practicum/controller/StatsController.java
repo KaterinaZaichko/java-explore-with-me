@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.DateTimeConstant;
 import ru.practicum.dto.HitDto;
 import ru.practicum.dto.StatsDto;
 import ru.practicum.service.StatsService;
@@ -21,16 +21,16 @@ public class StatsController {
     private final StatsService statsService;
 
     @PostMapping("/hit")
-    public ResponseEntity<Object> saveHit(@RequestBody @Valid HitDto hitDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void saveHit(@RequestBody @Valid HitDto hitDto) {
         log.info("Creating hit");
         statsService.save(hitDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/stats")
-    public List<StatsDto> getStats(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public List<StatsDto> getStats(@RequestParam @DateTimeFormat(pattern = DateTimeConstant.DATE_TIME_PATTERN)
                                    LocalDateTime start,
-                                   @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+                                   @RequestParam @DateTimeFormat(pattern = DateTimeConstant.DATE_TIME_PATTERN)
                                    LocalDateTime end,
                                    @RequestParam(required = false) String[] uris,
                                    @RequestParam(defaultValue = "false") boolean unique) {
