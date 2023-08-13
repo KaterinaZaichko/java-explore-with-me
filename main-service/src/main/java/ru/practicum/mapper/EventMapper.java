@@ -1,6 +1,7 @@
 package ru.practicum.mapper;
 
 import lombok.experimental.UtilityClass;
+import ru.practicum.DateTimeConstant;
 import ru.practicum.dto.category.CategoryDto;
 import ru.practicum.dto.event.EventFullDto;
 import ru.practicum.dto.event.EventShortDto;
@@ -10,18 +11,15 @@ import ru.practicum.model.Event;
 import ru.practicum.model.State;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @UtilityClass
 public class EventMapper {
-    private final DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
     public Event toEvent(NewEventDto newEventDto) {
         return Event.builder()
                 .annotation(newEventDto.getAnnotation())
                 .createdOn(LocalDateTime.now())
                 .description(newEventDto.getDescription())
-                .eventDate(LocalDateTime.parse(newEventDto.getEventDate(), dtFormatter))
+                .eventDate(LocalDateTime.parse(newEventDto.getEventDate(), DateTimeConstant.dtFormatter))
                 .location(LocationMapper.toLocation(newEventDto.getLocation()))
                 .paid(newEventDto.isPaid())
                 .participantLimit(newEventDto.getParticipantLimit())
@@ -38,9 +36,9 @@ public class EventMapper {
                         .id(event.getCategory().getId())
                         .name(event.getCategory().getName())
                         .build())
-                .createdOn(event.getCreatedOn().format(dtFormatter))
+                .createdOn(event.getCreatedOn().format(DateTimeConstant.dtFormatter))
                 .description(event.getDescription())
-                .eventDate(event.getEventDate().format(dtFormatter))
+                .eventDate(event.getEventDate().format(DateTimeConstant.dtFormatter))
                 .id(event.getId())
                 .initiator(UserShortDto.builder()
                         .id(event.getInitiator().getId())
@@ -50,7 +48,7 @@ public class EventMapper {
                 .paid(event.getPaid())
                 .participantLimit(event.getParticipantLimit())
                 .publishedOn(event.getPublishedOn() != null ?
-                        event.getPublishedOn().format(dtFormatter) : null)
+                        event.getPublishedOn().format(DateTimeConstant.dtFormatter) : null)
                 .requestModeration(event.getRequestModeration())
                 .state(event.getState())
                 .title(event.getTitle())

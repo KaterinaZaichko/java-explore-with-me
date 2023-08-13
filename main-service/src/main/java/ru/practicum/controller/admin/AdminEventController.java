@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.DateTimeConstant;
 import ru.practicum.dto.event.EventFullDto;
 import ru.practicum.dto.event.UpdateEventAdminRequest;
 import ru.practicum.service.EventService;
@@ -21,7 +22,6 @@ import java.util.List;
 @Slf4j
 @Validated
 public class AdminEventController {
-    private final String dtPattern = "yyyy-MM-dd HH:mm:ss";
     private final EventService eventService;
 
     @GetMapping
@@ -29,10 +29,10 @@ public class AdminEventController {
                                         @RequestParam(required = false) String[] states,
                                         @RequestParam(required = false) long[] categories,
                                         @RequestParam(required = false)
-                                        @DateTimeFormat(pattern = dtPattern)
+                                        @DateTimeFormat(pattern = DateTimeConstant.dtPattern)
                                         LocalDateTime rangeStart,
                                         @RequestParam(required = false)
-                                        @DateTimeFormat(pattern = dtPattern)
+                                        @DateTimeFormat(pattern = DateTimeConstant.dtPattern)
                                         LocalDateTime rangeEnd,
                                         @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                         @RequestParam(defaultValue = "10") @Positive int size) {

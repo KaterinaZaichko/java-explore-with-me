@@ -14,7 +14,7 @@ public class HitMapper {
                 .app(hitDto.getApp())
                 .uri(hitDto.getUri())
                 .ip(hitDto.getIp())
-                .timestamp(LocalDateTime.parse(hitDto.getTimestamp(), DateTimeConstant.DATE_TIME_FORMATTER))
+                .timestamp(LocalDateTime.parse(hitDto.getTimestamp(), DateTimeConstant.dtFormatter))
                 .build();
     }
 }
