@@ -6,14 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.practicum.dto.user.NewUserRequest;
 import ru.practicum.dto.user.UserDto;
-import ru.practicum.exception.NameUniquenessViolationException;
-import ru.practicum.exception.UserNotFoundException;
+import ru.practicum.exception.EntityNotFoundException;
 import ru.practicum.mapper.UserMapper;
-import ru.practicum.model.User;
 import ru.practicum.repository.UserRepository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,37 +20,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAll(long[] ids, int from, int size) {
-        List<UserDto> users = new ArrayList<>();
         Pageable pageWithSomeElements = PageRequest.of(from > 0 ? from / size : 0, size);
-        for (User user : userRepository.findAllByIdIn(ids, pageWithSomeElements)) {
-            users.add(UserMapper.toUserDto(user));
-        }
-        return users;
+        return userRepository.findAllByIdIn(ids, pageWithSomeElements).stream()
+                .map(UserMapper::toUserDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<UserDto> getAll(int from, int size) {
-        List<UserDto> users = new ArrayList<>();
         Pageable pageWithSomeElements = PageRequest.of(from > 0 ? from / size : 0, size);
-        for (User user : userRepository.findAll(pageWithSomeElements)) {
-            users.add(UserMapper.toUserDto(user));
-        }
-        return users;
+        return userRepository.findAll(pageWithSomeElements).stream()
+                .map(UserMapper::toUserDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public UserDto save(NewUserRequest newUserRequest) {
-        if (userRepository.findByName(newUserRequest.getName()) != null) {
-            throw new NameUniquenessViolationException(
-                    String.format("Name %s already exists", newUserRequest.getName()));
-        }
-        User user = UserMapper.toUser(newUserRequest);
-        return UserMapper.toUserDto(userRepository.save(user));
+        return UserMapper.toUserDto(userRepository.save(UserMapper.toUser(newUserRequest)));
     }
 
     @Override
     public void delete(long userId) {
-        userRepository.delete(userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(
+        userRepository.delete(userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(
                 String.format("User with id=%d was not found", userId))));
     }
 }

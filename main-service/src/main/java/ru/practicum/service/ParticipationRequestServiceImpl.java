@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 import ru.practicum.dto.participationRequest.ParticipationRequestDto;
 import ru.practicum.exception.*;
 import ru.practicum.mapper.ParticipationRequestMapper;
-import ru.practicum.model.*;
+import ru.practicum.model.Event;
+import ru.practicum.model.ParticipationRequest;
+import ru.practicum.model.State;
+import ru.practicum.model.User;
 import ru.practicum.repository.EventRepository;
 import ru.practicum.repository.ParticipationRequestRepository;
 import ru.practicum.repository.UserRepository;
@@ -23,7 +26,7 @@ public class ParticipationRequestServiceImpl implements ParticipationRequestServ
 
     @Override
     public List<ParticipationRequestDto> getAll(long userId) {
-        User requester =  userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(
+        User requester = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(
                 String.format("User with id=%d was not found", userId)));
         List<ParticipationRequestDto> participationRequests = new ArrayList<>();
         for (ParticipationRequest participationRequest : participationRequestRepository.findAllByRequester(requester)) {
@@ -34,9 +37,9 @@ public class ParticipationRequestServiceImpl implements ParticipationRequestServ
 
     @Override
     public ParticipationRequestDto save(long userId, long eventId) {
-        User requester = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(
+        User requester = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(
                 String.format("User with id=%d was not found", userId)));
-        Event event = eventRepository.findById(eventId).orElseThrow(() -> new EventNotFoundException(
+        Event event = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException(
                 String.format("Event with id=%d was not found", eventId)));
         if (participationRequestRepository.findByRequesterAndEvent(requester, event) != null) {
             throw new ForbiddenRequestException("Can't add a repeat request");
@@ -69,13 +72,13 @@ public class ParticipationRequestServiceImpl implements ParticipationRequestServ
 
     @Override
     public ParticipationRequestDto update(long userId, long requestId) {
-        User requester = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(
+        User requester = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(
                 String.format("User with id=%d was not found", userId)));
         ParticipationRequest participationRequest = participationRequestRepository.findById(requestId)
-                .orElseThrow(() -> new ParticipationRequestNotFoundException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         String.format("ParticipationRequest with id=%d was not found", requestId)));
         if (!requester.getId().equals(participationRequest.getRequester().getId())) {
-            throw new ParticipationRequestNotFoundException(
+            throw new EntityNotFoundException(
                     String.format("ParticipationRequest with id=%d was not found", requestId));
         }
         participationRequest.setStatus(State.CANCELED);

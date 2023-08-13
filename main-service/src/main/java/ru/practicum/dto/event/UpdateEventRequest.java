@@ -1,36 +1,29 @@
 package ru.practicum.dto.event;
 
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import ru.practicum.DateTimeConstant;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Data
-@Builder
-public class NewEventDto {
-    @NotBlank
+public class UpdateEventRequest {
     @Size(min = 20, max = 2000)
     private String annotation;
-    @NotNull(message = "Field: category. Error: must not be blank. Value: null")
     private Long category;
-    @NotBlank
     @Size(min = 20, max = 7000)
     private String description;
-    @NotBlank
-    private String eventDate;
-    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimeConstant.DATE_TIME_PATTERN)
+    private LocalDateTime eventDate;
     @Valid
     private LocationDto location;
-    private boolean paid;
+    private Boolean paid;
     @PositiveOrZero
-    private int participantLimit;
+    private Integer participantLimit;
     private Boolean requestModeration;
-    @NotBlank
     @Size(min = 3, max = 120)
     private String title;
 }
-

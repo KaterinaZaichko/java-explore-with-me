@@ -3,9 +3,8 @@ package ru.practicum.dto.event;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import ru.practicum.dto.user.UserShortDto;
 import ru.practicum.dto.category.CategoryDto;
-import ru.practicum.model.Location;
+import ru.practicum.dto.user.UserShortDto;
 import ru.practicum.model.State;
 
 @Data
@@ -20,7 +19,7 @@ public class EventFullDto {
     private String eventDate;
     private Long id;
     private UserShortDto initiator;
-    private Location location;
+    private LocationDto location;
     private Boolean paid;
     private Integer participantLimit;
     private String publishedOn;

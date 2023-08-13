@@ -2,7 +2,6 @@ package ru.practicum.service;
 
 import ru.practicum.dto.event.*;
 import ru.practicum.dto.participationRequest.ParticipationRequestDto;
-import ru.practicum.model.Event;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -42,8 +41,4 @@ public interface EventService {
                                                         int size);
 
     EventFullDto getEventById(long id);
-
-    long getConfirmedRequestsCount(Event event);
-
-    long getViews(Event event);
 }

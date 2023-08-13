@@ -1,20 +1,17 @@
 package ru.practicum.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+import javax.persistence.Embeddable;
+
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Embeddable
 public class Location {
     private float lat;
     private float lon;
-
-    @Override
-    public String toString() {
-        return lat + ", " + lon;
-    }
 }

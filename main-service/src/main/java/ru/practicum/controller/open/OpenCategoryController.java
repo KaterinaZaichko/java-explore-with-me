@@ -2,31 +2,33 @@ package ru.practicum.controller.open;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.category.CategoryDto;
 import ru.practicum.service.CategoryService;
 
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
 @AllArgsConstructor
 @Slf4j
+@Validated
 public class OpenCategoryController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<List<CategoryDto>> getCategories(@RequestParam(defaultValue = "0") int from,
-                                                           @RequestParam(defaultValue = "10") int size) {
+    public List<CategoryDto> getCategories(@RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                           @RequestParam(defaultValue = "10") @Positive int size) {
         log.info("Getting categories");
-        return new ResponseEntity<>(categoryService.getAll(from, size), HttpStatus.OK);
+        return categoryService.getAll(from, size);
     }
 
     @GetMapping("/{catId}")
-    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable long catId) {
+    public CategoryDto getCategoryById(@PathVariable long catId) {
         log.info("Getting category");
-        return new ResponseEntity<>(categoryService.getById(catId), HttpStatus.OK);
+        return categoryService.getById(catId);
     }
 }
