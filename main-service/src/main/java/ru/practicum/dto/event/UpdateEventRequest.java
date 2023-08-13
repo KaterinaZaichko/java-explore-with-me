@@ -16,7 +16,7 @@ public class UpdateEventRequest {
     private Long category;
     @Size(min = 20, max = 7000)
     private String description;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimeConstant.DATE_TIME_PATTERN)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimeConstant.dtPattern)
     private LocalDateTime eventDate;
     @Valid
     private LocationDto location;

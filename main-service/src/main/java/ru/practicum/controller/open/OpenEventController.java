@@ -31,10 +31,10 @@ public class OpenEventController {
                                          @RequestParam(required = false) long[] categories,
                                          @RequestParam(required = false) Boolean paid,
                                          @RequestParam(required = false)
-                                         @DateTimeFormat(pattern = DateTimeConstant.DATE_TIME_PATTERN)
+                                         @DateTimeFormat(pattern = DateTimeConstant.dtPattern)
                                          LocalDateTime rangeStart,
                                          @RequestParam(required = false)
-                                         @DateTimeFormat(pattern = DateTimeConstant.DATE_TIME_PATTERN)
+                                         @DateTimeFormat(pattern = DateTimeConstant.dtPattern)
                                          LocalDateTime rangeEnd,
                                          @RequestParam(defaultValue = "false") Boolean onlyAvailable,
                                          @RequestParam(required = false) String sort,

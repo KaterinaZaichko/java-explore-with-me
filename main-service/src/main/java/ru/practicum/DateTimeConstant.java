@@ -6,6 +6,6 @@ import java.time.format.DateTimeFormatter;
 
 @UtilityClass
 public class DateTimeConstant {
-    public final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
-    public final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
+    public final String dtPattern = "yyyy-MM-dd HH:mm:ss";
+    public final DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern(dtPattern);
 }

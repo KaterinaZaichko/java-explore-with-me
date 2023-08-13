@@ -9,7 +9,7 @@ import ru.practicum.model.ParticipationRequest;
 public class ParticipationRequestMapper {
     public ParticipationRequestDto toParticipationRequestDto(ParticipationRequest participationRequest) {
         return ParticipationRequestDto.builder()
-                .created(participationRequest.getCreated().format(DateTimeConstant.DATE_TIME_FORMATTER))
+                .created(participationRequest.getCreated().format(DateTimeConstant.dtFormatter))
                 .event(participationRequest.getEvent().getId())
                 .id(participationRequest.getId())
                 .requester(participationRequest.getRequester().getId())
