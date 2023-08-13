@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.DateTimeConstant;
 import ru.practicum.client.StatsClient;
 import ru.practicum.dto.event.EventFullDto;
 import ru.practicum.dto.event.EventShortDto;
@@ -23,6 +22,7 @@ import java.util.List;
 @Slf4j
 @Validated
 public class OpenEventController {
+    private final String dtPattern = "yyyy-MM-dd HH:mm:ss";
     private final EventService eventService;
     private final StatsClient statsClient;
 
@@ -31,10 +31,10 @@ public class OpenEventController {
                                          @RequestParam(required = false) long[] categories,
                                          @RequestParam(required = false) Boolean paid,
                                          @RequestParam(required = false)
-                                         @DateTimeFormat(pattern = DateTimeConstant.dtPattern)
+                                         @DateTimeFormat(pattern = dtPattern)
                                          LocalDateTime rangeStart,
                                          @RequestParam(required = false)
-                                         @DateTimeFormat(pattern = DateTimeConstant.dtPattern)
+                                         @DateTimeFormat(pattern = dtPattern)
                                          LocalDateTime rangeEnd,
                                          @RequestParam(defaultValue = "false") Boolean onlyAvailable,
                                          @RequestParam(required = false) String sort,
