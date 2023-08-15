@@ -1,96 +1,66 @@
 package ru.practicum.client;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.lang.Nullable;
-import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.dto.HitDto;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-public class StatsClient {
-    private final RestTemplate rest;
+@Service
+public class StatsClient extends BaseClient {
+    @Value("${ewm-server.url}")
+    public String nameApp;
+    public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
 
-    public StatsClient(RestTemplate rest,
-                       @Value("${ewm-server.url}") String serverUrl,
+    @Autowired
+    public StatsClient(@Value("${ewm-server.url}") String serverUrl,
                        RestTemplateBuilder builder) {
-        this.rest = rest;
-        builder
-                .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
-                .requestFactory(HttpComponentsClientHttpRequestFactory::new)
-                .build();
+        super(
+                builder
+                        .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
+                        .requestFactory(HttpComponentsClientHttpRequestFactory::new)
+                        .build()
+        );
     }
 
-    public ResponseEntity<Object> saveHit(HitDto hitDto) {
+    public ResponseEntity<Object> saveHit(HttpServletRequest httpServletRequest) {
+        HitDto hitDto = HitDto.builder()
+                .app(nameApp)
+                .uri(httpServletRequest.getRequestURI())
+                .ip(httpServletRequest.getRemoteAddr())
+                .timestamp(LocalDateTime.now().format(DATE_TIME_FORMATTER))
+                .build();
         return post("/hit", hitDto);
     }
 
-    public ResponseEntity<Object> getStatsWithUris(String start, String end, String[] uris, boolean unique) {
+    public ResponseEntity<Object> getStatsWithUris(LocalDateTime start,
+                                                   LocalDateTime end,
+                                                   String[] uris,
+                                                   boolean unique) {
         Map<String, Object> parameters = Map.of(
-                "start", start,
-                "end", end,
+                "start", start.format(DATE_TIME_FORMATTER),
+                "end", end.format(DATE_TIME_FORMATTER),
                 "uris", uris,
                 "unique", unique
         );
         return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
     }
 
-    public ResponseEntity<Object> getStatsWithoutUris(String start, String end, boolean unique) {
+    public ResponseEntity<Object> getStatsWithoutUris(LocalDateTime start, LocalDateTime end, boolean unique) {
         Map<String, Object> parameters = Map.of(
-                "start", start,
-                "end", end,
+                "start", start.format(DATE_TIME_FORMATTER),
+                "end", end.format(DATE_TIME_FORMATTER),
                 "unique", unique
         );
         return get("/stats?start={start}&end={end}&unique={unique}", parameters);
-    }
-
-    private ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
-        return makeAndSendRequest(HttpMethod.GET, path, parameters, null);
-    }
-
-    private <T> ResponseEntity<Object> post(String path, T body) {
-        return makeAndSendRequest(HttpMethod.POST, path, null, body);
-    }
-
-    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, @Nullable Map<String, Object> parameters, @Nullable T body) {
-        HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders());
-
-        ResponseEntity<Object> statsServerResponse;
-        try {
-            if (parameters != null) {
-                statsServerResponse = rest.exchange(path, method, requestEntity, Object.class, parameters);
-            } else {
-                statsServerResponse = rest.exchange(path, method, requestEntity, Object.class);
-            }
-        } catch (HttpStatusCodeException e) {
-            return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
-        }
-        return prepareGatewayResponse(statsServerResponse);
-    }
-
-    private HttpHeaders defaultHeaders() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
-        return headers;
-    }
-
-    private static ResponseEntity<Object> prepareGatewayResponse(ResponseEntity<Object> response) {
-        if (response.getStatusCode().is2xxSuccessful()) {
-            return response;
-        }
-
-        ResponseEntity.BodyBuilder responseBuilder = ResponseEntity.status(response.getStatusCode());
-
-        if (response.hasBody()) {
-            return responseBuilder.body(response.getBody());
-        }
-
-        return responseBuilder.build();
     }
 }

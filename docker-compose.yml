@@ -1,9 +1,9 @@
 version: '3.1'
 services:
-  stats-service:
+  stats-server:
     build: stats-service/server
     image: stats_service_image
-    container_name: stats-service-container
+    container_name: stats-server
     ports:
       - "9090:9090"
     depends_on:
@@ -25,16 +25,17 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
       - "/etc/timezone:/etc/timezone:ro"
 
-  main-service:
+  ewm-service:
     build: main-service
     image: main_service_image
-    container_name: main-service-container
+    container_name: ewv-service
     ports:
       - "8080:8080"
     depends_on:
       - ewm-db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5433/ewmmain
+      - STATISTICS_SERVER_URL=http://stats-server:9090
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/ewmmain
       - "/etc/localtime:/etc/localtime:ro"
       - "/etc/timezone:/etc/timezone:ro"
 
@@ -42,7 +43,7 @@ services:
     image: postgres:14-alpine
     container_name: ewm-db
     ports:
-      - "6542:5433"
+      - "6542:5432"
     environment:
       - POSTGRES_DB=ewmmain
       - POSTGRES_USER=user
