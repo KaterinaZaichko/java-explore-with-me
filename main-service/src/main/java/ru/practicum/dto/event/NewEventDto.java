@@ -34,6 +34,7 @@ public class NewEventDto {
     @PositiveOrZero
     private int participantLimit;
     private Boolean requestModeration;
+    private boolean commentsPossibility;
     @NotBlank
     @Size(min = 3, max = 120)
     private String title;

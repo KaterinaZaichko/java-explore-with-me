@@ -52,7 +52,8 @@ public class MainErrorHandler {
             ForbiddenRequestException.class,
             HttpMessageNotReadableException.class,
             DataIntegrityViolationException.class,
-            CategoryVoidViolationException.class})
+            CategoryVoidViolationException.class,
+            ForbiddenCommentException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public ApiError forbiddenHandler(final RuntimeException e) {
         log.info("409: {}", e.getMessage(), e);
