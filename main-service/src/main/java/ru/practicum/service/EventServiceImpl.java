@@ -15,10 +15,7 @@ import ru.practicum.mapper.EventMapper;
 import ru.practicum.mapper.LocationMapper;
 import ru.practicum.mapper.ParticipationRequestMapper;
 import ru.practicum.model.*;
-import ru.practicum.repository.CategoryRepository;
-import ru.practicum.repository.EventRepository;
-import ru.practicum.repository.ParticipationRequestRepository;
-import ru.practicum.repository.UserRepository;
+import ru.practicum.repository.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -31,6 +28,7 @@ public class EventServiceImpl implements EventService {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final ParticipationRequestRepository participationRequestRepository;
+    private final CommentRepository commentRepository;
     private final StatsClient statsClient;
     private ObjectMapper objectMapper;
 
@@ -308,10 +306,14 @@ public class EventServiceImpl implements EventService {
             if (updateEventAdminRequest.getStateAction().equals(UpdateEventAdminRequest.StateAction.PUBLISH_EVENT)) {
                 updatedEvent.setState(State.PUBLISHED);
                 updatedEvent.setPublishedOn(LocalDateTime.now());
+                updatedEvent.setCommentsPossibility(true);
             }
             if (updateEventAdminRequest.getStateAction().equals(UpdateEventAdminRequest.StateAction.REJECT_EVENT)) {
                 updatedEvent.setState(State.CANCELED);
             }
+        }
+        if (updatedEvent.getPublishedOn() != null && updateEventAdminRequest.getCommentsPossibility() != null) {
+            updatedEvent.setCommentsPossibility(updateEventAdminRequest.getCommentsPossibility());
         }
         if (updateEventAdminRequest.getTitle() != null
                 && !updateEventAdminRequest.getTitle().isBlank()) {
@@ -386,6 +388,15 @@ public class EventServiceImpl implements EventService {
         eventFullDto.setConfirmedRequests(getConfirmedRequestsCount(List.of(event)).getOrDefault(event, 0L));
         eventFullDto.setViews(getViews(List.of(event)).get("/events/" + event.getId()));
         return eventFullDto;
+    }
+
+    @Override
+    public void deleteComment(long commentId) {
+        if (!commentRepository.existsById(commentId)) {
+            throw new EntityNotFoundException(String.format("Comment with id=%d was not found", commentId));
+        } else {
+            commentRepository.deleteById(commentId);
+        }
     }
 
     private Map<Event, Long> getConfirmedRequestsCount(List<Event> events) {

@@ -23,7 +23,9 @@ public class EventMapper {
                 .location(LocationMapper.toLocation(newEventDto.getLocation()))
                 .paid(newEventDto.isPaid())
                 .participantLimit(newEventDto.getParticipantLimit())
-                .requestModeration(newEventDto.getRequestModeration() != null ? newEventDto.getRequestModeration() : true)
+                .requestModeration(newEventDto.getRequestModeration() != null
+                        ? newEventDto.getRequestModeration() : true)
+                .commentsPossibility(false)
                 .state(State.PENDING)
                 .title(newEventDto.getTitle())
                 .build();
@@ -50,6 +52,7 @@ public class EventMapper {
                 .publishedOn(event.getPublishedOn() != null ?
                         event.getPublishedOn().format(DateTimeConstant.dtFormatter) : null)
                 .requestModeration(event.getRequestModeration())
+                .commentsPossibility(event.getCommentsPossibility())
                 .state(event.getState())
                 .title(event.getTitle())
                 .build();
