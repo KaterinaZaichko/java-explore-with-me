@@ -40,10 +40,12 @@ public class EventServiceImpl implements EventService {
         List<Event> events = eventRepository.findAllByInitiator(initiator, pageWithSomeElements);
         List<EventShortDto> eventShortDtos = new ArrayList<>();
         Map<Event, Long> confirmedRequests = getConfirmedRequestsCount(events);
+        Map<Event, Long> comments = getCommentsCount(events);
         Map<String, Long> views = getViews(events);
         for (Event event : events) {
             EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
             eventShortDto.setConfirmedRequests(confirmedRequests.getOrDefault(event, 0L));
+            eventShortDto.setComments(comments.getOrDefault(event, 0L));
             eventShortDto.setViews(views.get("/events/" + event.getId()));
             eventShortDtos.add(eventShortDto);
         }
@@ -76,6 +78,7 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository.findByIdAndInitiator(eventId, initiator);
         EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
         eventFullDto.setConfirmedRequests(getConfirmedRequestsCount(List.of(event)).getOrDefault(event, 0L));
+        eventFullDto.setComments(getCommentsCount(List.of(event)).getOrDefault(event, 0L));
         eventFullDto.setViews(getViews(List.of(event)).get("/events/" + event.getId()));
         return eventFullDto;
     }
@@ -243,10 +246,12 @@ public class EventServiceImpl implements EventService {
                 usersList, statesList, categoriesList, rangeStart, rangeEnd, pageWithSomeElements);
         List<EventFullDto> eventFullDtos = new ArrayList<>();
         Map<Event, Long> confirmedRequests = getConfirmedRequestsCount(events);
+        Map<Event, Long> comments = getCommentsCount(events);
         Map<String, Long> views = getViews(events);
         for (Event event : events) {
             EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
             eventFullDto.setConfirmedRequests(confirmedRequests.getOrDefault(event, 0L));
+            eventFullDto.setComments(comments.getOrDefault(event, 0L));
             eventFullDto.setViews(views.get("/events/" + event.getId()));
             eventFullDtos.add(eventFullDto);
         }
@@ -306,14 +311,10 @@ public class EventServiceImpl implements EventService {
             if (updateEventAdminRequest.getStateAction().equals(UpdateEventAdminRequest.StateAction.PUBLISH_EVENT)) {
                 updatedEvent.setState(State.PUBLISHED);
                 updatedEvent.setPublishedOn(LocalDateTime.now());
-                updatedEvent.setCommentsPossibility(true);
             }
             if (updateEventAdminRequest.getStateAction().equals(UpdateEventAdminRequest.StateAction.REJECT_EVENT)) {
                 updatedEvent.setState(State.CANCELED);
             }
-        }
-        if (updatedEvent.getPublishedOn() != null && updateEventAdminRequest.getCommentsPossibility() != null) {
-            updatedEvent.setCommentsPossibility(updateEventAdminRequest.getCommentsPossibility());
         }
         if (updateEventAdminRequest.getTitle() != null
                 && !updateEventAdminRequest.getTitle().isBlank()) {
@@ -350,12 +351,14 @@ public class EventServiceImpl implements EventService {
                 text, categoriesList, paid, rangeStart, rangeEnd, pageWithSomeElements);
         List<EventShortDto> eventShortDtos = new ArrayList<>();
         Map<Event, Long> confirmedRequests = getConfirmedRequestsCount(events);
+        Map<Event, Long> comments = getCommentsCount(events);
         Map<String, Long> views = getViews(events);
         if (onlyAvailable.equals(true)) {
             for (Event event : events) {
                 if (event.getParticipantLimit() < confirmedRequests.get(event)) {
                     EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
                     eventShortDto.setConfirmedRequests(confirmedRequests.getOrDefault(event, 0L));
+                    eventShortDto.setComments(comments.getOrDefault(event, 0L));
                     eventShortDto.setViews(views.get("/events/" + event.getId()));
                     eventShortDtos.add(eventShortDto);
                 }
@@ -364,6 +367,7 @@ public class EventServiceImpl implements EventService {
             for (Event event : events) {
                 EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
                 eventShortDto.setConfirmedRequests(confirmedRequests.getOrDefault(event, 0L));
+                eventShortDto.setComments(comments.getOrDefault(event, 0L));
                 eventShortDto.setViews(views.get("/events/" + event.getId()));
                 eventShortDtos.add(eventShortDto);
             }
@@ -386,23 +390,21 @@ public class EventServiceImpl implements EventService {
         }
         EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
         eventFullDto.setConfirmedRequests(getConfirmedRequestsCount(List.of(event)).getOrDefault(event, 0L));
+        eventFullDto.setComments(getCommentsCount(List.of(event)).getOrDefault(event, 0L));
         eventFullDto.setViews(getViews(List.of(event)).get("/events/" + event.getId()));
         return eventFullDto;
-    }
-
-    @Override
-    public void deleteComment(long commentId) {
-        if (!commentRepository.existsById(commentId)) {
-            throw new EntityNotFoundException(String.format("Comment with id=%d was not found", commentId));
-        } else {
-            commentRepository.deleteById(commentId);
-        }
     }
 
     private Map<Event, Long> getConfirmedRequestsCount(List<Event> events) {
         return participationRequestRepository.findAllByEventInAndStatus(events, State.CONFIRMED).stream()
                 .collect(Collectors.toMap(
                         ConfirmedRequestsCount::getEvent, ConfirmedRequestsCount::getCountConfirmedRequests));
+    }
+
+    private Map<Event, Long> getCommentsCount(List<Event> events) {
+        return commentRepository.findAllByEventIn(events).stream()
+                .collect(Collectors.toMap(
+                        CommentsCount::getEvent, CommentsCount::getCountComments));
     }
 
     private Map<String, Long> getViews(List<Event> events) {

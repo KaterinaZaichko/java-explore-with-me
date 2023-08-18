@@ -39,8 +39,6 @@ public class Event {
     private LocalDateTime publishedOn;
     @Column(name = "request_moderation")
     private Boolean requestModeration;
-    @Column(name = "comments_possibility")
-    private Boolean commentsPossibility;
     @Enumerated(EnumType.STRING)
     private State state;
     private String title;

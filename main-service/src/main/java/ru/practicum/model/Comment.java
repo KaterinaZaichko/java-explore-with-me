@@ -27,4 +27,5 @@ public class Comment {
     private Event event;
     @Column(nullable = false)
     private LocalDateTime created;
+    private LocalDateTime updated;
 }

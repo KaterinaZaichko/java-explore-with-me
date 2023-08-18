@@ -41,6 +41,4 @@ public interface EventService {
                                                         int size);
 
     EventFullDto getEventById(long id);
-
-    void deleteComment(long commentId);
 }

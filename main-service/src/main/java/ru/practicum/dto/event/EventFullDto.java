@@ -24,8 +24,8 @@ public class EventFullDto {
     private Integer participantLimit;
     private String publishedOn;
     private Boolean requestModeration;
-    private Boolean commentsPossibility;
     private State state;
     private String title;
     private Long views;
+    private Long comments;
 }

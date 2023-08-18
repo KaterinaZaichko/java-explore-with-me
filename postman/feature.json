@@ -1,22 +1,22 @@
 {
   "info": {
-    "_postman_id": "2cfb73ab-c5b8-4404-8f7d-fcf68bf9c438",
+    "_postman_id": "51b37372-6892-41ca-9906-548dd9d2c79d",
     "name": "ExploreWithMe - Feature \"Comments\"",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "29075120"
+    "_exporter_id": "29185180"
   },
   "item": [
     {
-      "name": "Сохранение",
+      "name": "РЎРѕС…СЂР°РЅРµРЅРёРµ",
       "item": [
         {
-          "name": "Добавление пользователя",
+          "name": "Р”РѕР±Р°РІР»РµРЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 201 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(201);\r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -25,16 +25,16 @@
                   "const source = JSON.parse(pm.request.body.raw);\r",
                   "const target = pm.response.json();\r",
                   "\r",
-                  "pm.test(\"Пользователь должен содержать поля: id, name, email\", function () {\r",
+                  "pm.test(\"РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РїРѕР»СЏ: id, name, email\", function () {\r",
                   "pm.expect(target).to.have.property('id');\r",
                   "pm.expect(target).to.have.property('name');\r",
                   "pm.expect(target).to.have.property('email');\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+                  "pm.test(\"Р”Р°РЅРЅС‹Рµ РІ РѕС‚РІРµС‚Рµ РґРѕР»Р¶РЅС‹ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°РЅРЅС‹Рј РІ Р·Р°РїСЂРѕСЃРµ\", function () {\r",
                   "    pm.expect(target.id).to.not.be.null;\r",
-                  "    pm.expect(source.name).equal(target.name, 'Имя пользователя должно соответствовать отправленному в запросе');\r",
-                  "    pm.expect(source.email).equal(target.email, 'Почта пользователя должна соответствовать отправленной в запросе');\r",
+                  "    pm.expect(source.name).equal(target.name, 'РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґРѕР»Р¶РЅРѕ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РѕС‚РїСЂР°РІР»РµРЅРЅРѕРјСѓ РІ Р·Р°РїСЂРѕСЃРµ');\r",
+                  "    pm.expect(source.email).equal(target.email, 'РџРѕС‡С‚Р° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґРѕР»Р¶РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РѕС‚РїСЂР°РІР»РµРЅРЅРѕР№ РІ Р·Р°РїСЂРѕСЃРµ');\r",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -69,13 +69,13 @@
           "response": []
         },
         {
-          "name": "Добавление категории",
+          "name": "Р”РѕР±Р°РІР»РµРЅРёРµ РєР°С‚РµРіРѕСЂРёРё",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 201 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(201);\r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -84,14 +84,14 @@
                   "const source = JSON.parse(pm.request.body.raw);\r",
                   "const target = pm.response.json();\r",
                   "\r",
-                  "pm.test(\"Категория должна содержать поля: id, name\", function () {\r",
+                  "pm.test(\"РљР°С‚РµРіРѕСЂРёСЏ РґРѕР»Р¶РЅР° СЃРѕРґРµСЂР¶Р°С‚СЊ РїРѕР»СЏ: id, name\", function () {\r",
                   "pm.expect(target).to.have.property('id');\r",
                   "pm.expect(target).to.have.property('name');\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+                  "pm.test(\"Р”Р°РЅРЅС‹Рµ РІ РѕС‚РІРµС‚Рµ РґРѕР»Р¶РЅС‹ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°РЅРЅС‹Рј РІ Р·Р°РїСЂРѕСЃРµ\", function () {\r",
                   "    pm.expect(target.id).to.not.be.null;\r",
-                  "    pm.expect(source.name).equal(target.name, 'Название категории должно совпадать с отправленным');\r",
+                  "    pm.expect(source.name).equal(target.name, 'РќР°Р·РІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёРё РґРѕР»Р¶РЅРѕ СЃРѕРІРїР°РґР°С‚СЊ СЃ РѕС‚РїСЂР°РІР»РµРЅРЅС‹Рј');\r",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -126,13 +126,13 @@
           "response": []
         },
         {
-          "name": "Добавление события",
+          "name": "Р”РѕР±Р°РІР»РµРЅРёРµ СЃРѕР±С‹С‚РёСЏ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 201 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(201);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -141,7 +141,7 @@
                   "const source = JSON.parse(pm.request.body.raw);\r",
                   "const target = pm.response.json();\r",
                   "\r",
-                  "pm.test(\"Событие должно содержать поля: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
+                  "pm.test(\"РЎРѕР±С‹С‚РёРµ РґРѕР»Р¶РЅРѕ СЃРѕРґРµСЂР¶Р°С‚СЊ РїРѕР»СЏ: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
                   "pm.expect(target).to.have.property('id');\r",
                   "pm.expect(target).to.have.property('title');\r",
                   "pm.expect(target).to.have.property('annotation');\r",
@@ -155,18 +155,16 @@
                   "pm.expect(target).to.have.property('createdOn');\r",
                   "pm.expect(target).to.have.property('location');\r",
                   "pm.expect(target).to.have.property('requestModeration');\r",
-                  "pm.expect(target).to.have.property('commentsPossibility');\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+                  "pm.test(\"Р”Р°РЅРЅС‹Рµ РІ РѕС‚РІРµС‚Рµ РґРѕР»Р¶РЅС‹ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°РЅРЅС‹Рј РІ Р·Р°РїСЂРѕСЃРµ\", function () {\r",
                   "    pm.expect(target.id).to.not.be.null;\r",
-                  "    pm.expect(target.title).equal(source.title, 'Название события должно соответствовать названию события в запросе');\r",
-                  "    pm.expect(target.annotation).equal(source.annotation, 'Аннотация события должна соответствовать аннотации события в запросе');\r",
-                  "    pm.expect(target.eventDate).equal(source.eventDate, 'Дата проведения события должна соответствовать дате проведения события в запросе');\r",
-                  "    pm.expect(target.description).equal(source.description, 'Описание события должно соответствовать описание события в запросе');\r",
-                  "    pm.expect(target.location.lat.toString()).equal(source.location.lat.toString(), 'Широта локации проведения события должна соответствовать широте локации проведения события в запросе');\r",
-                  "    pm.expect(target.location.lon.toString()).equal(source.location.lon.toString(), 'Долгота локации проведения события должна соответствовать долготе локации проведения события в запросе');\r",
-                  "    pm.expect(target.commentsPossibility).to.not.be.null;\r",
+                  "    pm.expect(target.title).equal(source.title, 'РќР°Р·РІР°РЅРёРµ СЃРѕР±С‹С‚РёСЏ РґРѕР»Р¶РЅРѕ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РЅР°Р·РІР°РЅРёСЋ СЃРѕР±С‹С‚РёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
+                  "    pm.expect(target.annotation).equal(source.annotation, 'РђРЅРЅРѕС‚Р°С†РёСЏ СЃРѕР±С‹С‚РёСЏ РґРѕР»Р¶РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ Р°РЅРЅРѕС‚Р°С†РёРё СЃРѕР±С‹С‚РёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
+                  "    pm.expect(target.eventDate).equal(source.eventDate, 'Р”Р°С‚Р° РїСЂРѕРІРµРґРµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ РґРѕР»Р¶РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°С‚Рµ РїСЂРѕРІРµРґРµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
+                  "    pm.expect(target.description).equal(source.description, 'РћРїРёСЃР°РЅРёРµ СЃРѕР±С‹С‚РёСЏ РґРѕР»Р¶РЅРѕ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РѕРїРёСЃР°РЅРёРµ СЃРѕР±С‹С‚РёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
+                  "    pm.expect(target.location.lat.toString()).equal(source.location.lat.toString(), 'РЁРёСЂРѕС‚Р° Р»РѕРєР°С†РёРё РїСЂРѕРІРµРґРµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ РґРѕР»Р¶РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ С€РёСЂРѕС‚Рµ Р»РѕРєР°С†РёРё РїСЂРѕРІРµРґРµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
+                  "    pm.expect(target.location.lon.toString()).equal(source.location.lon.toString(), 'Р”РѕР»РіРѕС‚Р° Р»РѕРєР°С†РёРё РїСЂРѕРІРµРґРµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ РґРѕР»Р¶РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґРѕР»РіРѕС‚Рµ Р»РѕРєР°С†РёРё РїСЂРѕРІРµРґРµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -202,7 +200,7 @@
           "response": []
         },
         {
-          "name": "Добавление комментария к неопубликованному событию",
+          "name": "Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ Рє РЅРµРѕРїСѓР±Р»РёРєРѕРІР°РЅРЅРѕРјСѓ СЃРѕР±С‹С‚РёСЋ",
           "event": [
             {
               "listen": "prerequest",
@@ -217,7 +215,7 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 409 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(409);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -262,13 +260,13 @@
           "response": []
         },
         {
-          "name": "Обновление возможности комментирования события",
+          "name": "РџСѓР±Р»РёРєР°С†РёСЏ СЃРѕР±С‹С‚РёСЏ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 200 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.be.ok;    \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -277,7 +275,7 @@
                   "const source = pm.collectionVariables.get('response');\r",
                   "const target = pm.response.json();\r",
                   "\r",
-                  "pm.test(\"Событие должно содержать поля: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, publishedOn, location, requestModeration, commentsPossibility\", function () {\r",
+                  "pm.test(\"РЎРѕР±С‹С‚РёРµ РґРѕР»Р¶РЅРѕ СЃРѕРґРµСЂР¶Р°С‚СЊ РїРѕР»СЏ: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, publishedOn, location, requestModeration\", function () {\r",
                   "pm.expect(target).to.have.property('id');\r",
                   "pm.expect(target).to.have.property('title');\r",
                   "pm.expect(target).to.have.property('annotation');\r",
@@ -292,12 +290,10 @@
                   "pm.expect(target).to.have.property('publishedOn');\r",
                   "pm.expect(target).to.have.property('location');\r",
                   "pm.expect(target).to.have.property('requestModeration');\r",
-                  "pm.expect(target).to.have.property('commentsPossibility');\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+                  "pm.test(\"Р”Р°РЅРЅС‹Рµ РІ РѕС‚РІРµС‚Рµ РґРѕР»Р¶РЅС‹ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°РЅРЅС‹Рј РІ Р·Р°РїСЂРѕСЃРµ\", function () {\r",
                   "    pm.expect(target.publishedOn).not.to.be.null;\r",
-                  "    pm.expect(target.commentsPossibility).to.be.true;\r",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -333,13 +329,13 @@
           "response": []
         },
         {
-          "name": "Добавление комментария к опубликованному событию",
+          "name": "Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ Рє РѕРїСѓР±Р»РёРєРѕРІР°РЅРЅРѕРјСѓ СЃРѕР±С‹С‚РёСЋ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 201 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(201);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -348,17 +344,18 @@
                   "const source = JSON.parse(pm.request.body.raw);\r",
                   "const target = pm.response.json();\r",
                   "\r",
-                  "pm.test(\"Комментарий должен содержать поля: id, content, author, event, created\", function () {\r",
+                  "pm.test(\"РљРѕРјРјРµРЅС‚Р°СЂРёР№ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РїРѕР»СЏ: id, content, author, event, created, updated\", function () {\r",
                   "pm.expect(target).to.have.property('id');\r",
                   "pm.expect(target).to.have.property('content');\r",
                   "pm.expect(target).to.have.property('author');\r",
                   "pm.expect(target).to.have.property('event');\r",
                   "pm.expect(target).to.have.property('created');\r",
+                  "pm.expect(target).to.have.property('updated');\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+                  "pm.test(\"Р”Р°РЅРЅС‹Рµ РІ РѕС‚РІРµС‚Рµ РґРѕР»Р¶РЅС‹ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°РЅРЅС‹Рј РІ Р·Р°РїСЂРѕСЃРµ\", function () {\r",
                   "    pm.expect(target.id).to.not.be.null;\r",
-                  "    pm.expect(target.content).equal(source.content, 'Содержание комментария должно соответствовать содержанию комментария в запросе');\r",
+                  "    pm.expect(target.content).equal(source.content, 'РЎРѕРґРµСЂР¶Р°РЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ РґРѕР»Р¶РЅРѕ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ СЃРѕРґРµСЂР¶Р°РЅРёСЋ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -400,13 +397,13 @@
           "response": []
         },
         {
-          "name": "Добавление комментария c нулевым содержанием",
+          "name": "Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ c РЅСѓР»РµРІС‹Рј СЃРѕРґРµСЂР¶Р°РЅРёРµРј",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 400 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(400);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -451,13 +448,13 @@
           "response": []
         },
         {
-          "name": "Добавление комментария c пустым содержанием",
+          "name": "Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ c РїСѓСЃС‚С‹Рј СЃРѕРґРµСЂР¶Р°РЅРёРµРј",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 400 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(400);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -502,13 +499,13 @@
           "response": []
         },
         {
-          "name": "Добавление комментария c содержанием более 2000 символов",
+          "name": "Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ c СЃРѕРґРµСЂР¶Р°РЅРёРµРј Р±РѕР»РµРµ 2000 СЃРёРјРІРѕР»РѕРІ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 400 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(400);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -551,20 +548,67 @@
             }
           },
           "response": []
-        }
-      ]
-    },
-    {
-      "name": "Обновление",
-      "item": [
+        },
         {
-          "name": "Обновление комментария",
+          "name": "РџСЂРѕРІРµСЂРєР° РїРѕР»СЏ comments",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 200 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
+                  "    pm.response.to.be.ok;    \r",
+                  "    pm.response.to.be.withBody;\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "const target = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"РЎРѕР±С‹С‚РёРµ РґРѕР»Р¶РЅРѕ СЃРѕРґРµСЂР¶Р°С‚СЊ РїРѕР»e: comments\", function () {\r",
+                  "pm.expect(target).to.have.property('comments');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Р—РЅР°С‡РµРЅРёРµ РїРѕР»СЏ comments РґРѕР»Р¶РЅРѕ СѓРІРµР»РёС‡РёС‚СЃСЏ РЅР° 1 РїРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ\", function () {\r",
+                  "    pm.expect(target.comments).equal(1);\r",
+                  "    \r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/events/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "events",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "РћР±РЅРѕРІР»РµРЅРёРµ",
+      "item": [
+        {
+          "name": "РћР±РЅРѕРІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 200 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.be.ok;    \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -573,7 +617,7 @@
                   "const source = JSON.parse(pm.request.body.raw);\r",
                   "const target = pm.response.json();\r",
                   "\r",
-                  "pm.test(\"Комментарий должен содержать поля: id, content, author, event, created\", function () {\r",
+                  "pm.test(\"РљРѕРјРјРµРЅС‚Р°СЂРёР№ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РїРѕР»СЏ: id, content, author, event, created\", function () {\r",
                   "pm.expect(target).to.have.property('id');\r",
                   "pm.expect(target).to.have.property('content');\r",
                   "pm.expect(target).to.have.property('author');\r",
@@ -581,9 +625,9 @@
                   "pm.expect(target).to.have.property('created');\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+                  "pm.test(\"Р”Р°РЅРЅС‹Рµ РІ РѕС‚РІРµС‚Рµ РґРѕР»Р¶РЅС‹ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°РЅРЅС‹Рј РІ Р·Р°РїСЂРѕСЃРµ\", function () {\r",
                   "    pm.expect(target.id).to.not.be.null;\r",
-                  "    pm.expect(source.content).equal(target.content, 'Содержание комментария должно совпадать с отправленным');\r",
+                  "    pm.expect(source.content).equal(target.content, 'РЎРѕРґРµСЂР¶Р°РЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ РґРѕР»Р¶РЅРѕ СЃРѕРІРїР°РґР°С‚СЊ СЃ РѕС‚РїСЂР°РІР»РµРЅРЅС‹Рј');\r",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -620,13 +664,13 @@
           "response": []
         },
         {
-          "name": "Обновление несуществующего комментария",
+          "name": "РћР±РЅРѕРІР»РµРЅРёРµ РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 404 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(404);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -666,13 +710,13 @@
           "response": []
         },
         {
-          "name": "Добавление пользователя",
+          "name": "Р”РѕР±Р°РІР»РµРЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 201 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(201);\r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -681,16 +725,16 @@
                   "const source = JSON.parse(pm.request.body.raw);\r",
                   "const target = pm.response.json();\r",
                   "\r",
-                  "pm.test(\"Пользователь должен содержать поля: id, name, email\", function () {\r",
+                  "pm.test(\"РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РїРѕР»СЏ: id, name, email\", function () {\r",
                   "pm.expect(target).to.have.property('id');\r",
                   "pm.expect(target).to.have.property('name');\r",
                   "pm.expect(target).to.have.property('email');\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+                  "pm.test(\"Р”Р°РЅРЅС‹Рµ РІ РѕС‚РІРµС‚Рµ РґРѕР»Р¶РЅС‹ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°РЅРЅС‹Рј РІ Р·Р°РїСЂРѕСЃРµ\", function () {\r",
                   "    pm.expect(target.id).to.not.be.null;\r",
-                  "    pm.expect(source.name).equal(target.name, 'Имя пользователя должно соответствовать отправленному в запросе');\r",
-                  "    pm.expect(source.email).equal(target.email, 'Почта пользователя должна соответствовать отправленной в запросе');\r",
+                  "    pm.expect(source.name).equal(target.name, 'РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґРѕР»Р¶РЅРѕ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РѕС‚РїСЂР°РІР»РµРЅРЅРѕРјСѓ РІ Р·Р°РїСЂРѕСЃРµ');\r",
+                  "    pm.expect(source.email).equal(target.email, 'РџРѕС‡С‚Р° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РґРѕР»Р¶РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РѕС‚РїСЂР°РІР»РµРЅРЅРѕР№ РІ Р·Р°РїСЂРѕСЃРµ');\r",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -725,13 +769,13 @@
           "response": []
         },
         {
-          "name": "Обновление комментария не автором",
+          "name": "РћР±РЅРѕРІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ РЅРµ Р°РІС‚РѕСЂРѕРј",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 409 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(409);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -771,13 +815,13 @@
           "response": []
         },
         {
-          "name": "Обновление комментария c нулевым содержанием",
+          "name": "РћР±РЅРѕРІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ c РЅСѓР»РµРІС‹Рј СЃРѕРґРµСЂР¶Р°РЅРёРµРј",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 400 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(400);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -817,13 +861,13 @@
           "response": []
         },
         {
-          "name": "Обновление комментария c пустым содержанием",
+          "name": "РћР±РЅРѕРІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ c РїСѓСЃС‚С‹Рј СЃРѕРґРµСЂР¶Р°РЅРёРµРј",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 400 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(400);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -863,13 +907,13 @@
           "response": []
         },
         {
-          "name": "Обновление комментария c содержанием более 2000 символов",
+          "name": "РћР±РЅРѕРІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ c СЃРѕРґРµСЂР¶Р°РЅРёРµРј Р±РѕР»РµРµ 2000 СЃРёРјРІРѕР»РѕРІ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 400 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(400);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -911,16 +955,16 @@
       ]
     },
     {
-      "name": "Получение",
+      "name": "РџРѕР»СѓС‡РµРЅРёРµ",
       "item": [
         {
-          "name": "Получить все комментарии по событию",
+          "name": "РџРѕР»СѓС‡РёС‚СЊ РІСЃРµ РєРѕРјРјРµРЅС‚Р°СЂРёРё РїРѕ СЃРѕР±С‹С‚РёСЋ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 200 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.be.ok;    \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -929,15 +973,17 @@
                   "const source = pm.collectionVariables.get('response');\r",
                   "const target = pm.response.json()[0];\r",
                   "\r",
-                  "pm.test(\"Комментарий должен содержать поля: id, content, author, event, created\", function () {\r",
+                  "pm.test(\"РљРѕРјРјРµРЅС‚Р°СЂРёР№ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РїРѕР»СЏ: id, content, author, event, created, updated\", function () {\r",
                   "pm.expect(target).to.have.property('id');\r",
                   "pm.expect(target).to.have.property('content');\r",
                   "pm.expect(target).to.have.property('author');\r",
                   "pm.expect(target).to.have.property('event');\r",
                   "pm.expect(target).to.have.property('created');\r",
+                  "pm.expect(target).to.have.property('created');\r",
+                  "pm.expect(target).to.have.property('updated');\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+                  "pm.test(\"Р”Р°РЅРЅС‹Рµ РІ РѕС‚РІРµС‚Рµ РґРѕР»Р¶РЅС‹ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°РЅРЅС‹Рј РІ Р·Р°РїСЂРѕСЃРµ\", function () {\r",
                   "    pm.expect(target.id).to.not.be.null;\r",
                   "});"
                 ],
@@ -949,15 +995,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/users/1/comments?eventId=1&from=0&size=1000",
+              "raw": "http://localhost:8080/comments?eventId=1&from=0&size=1000",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
-                "users",
-                "1",
                 "comments"
               ],
               "query": [
@@ -979,13 +1023,13 @@
           "response": []
         },
         {
-          "name": "Добавление события",
+          "name": "Р”РѕР±Р°РІР»РµРЅРёРµ СЃРѕР±С‹С‚РёСЏ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 201 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(201);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -994,7 +1038,7 @@
                   "const source = JSON.parse(pm.request.body.raw);\r",
                   "const target = pm.response.json();\r",
                   "\r",
-                  "pm.test(\"Событие должно содержать поля: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
+                  "pm.test(\"РЎРѕР±С‹С‚РёРµ РґРѕР»Р¶РЅРѕ СЃРѕРґРµСЂР¶Р°С‚СЊ РїРѕР»СЏ: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
                   "pm.expect(target).to.have.property('id');\r",
                   "pm.expect(target).to.have.property('title');\r",
                   "pm.expect(target).to.have.property('annotation');\r",
@@ -1008,18 +1052,16 @@
                   "pm.expect(target).to.have.property('createdOn');\r",
                   "pm.expect(target).to.have.property('location');\r",
                   "pm.expect(target).to.have.property('requestModeration');\r",
-                  "pm.expect(target).to.have.property('commentsPossibility');\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+                  "pm.test(\"Р”Р°РЅРЅС‹Рµ РІ РѕС‚РІРµС‚Рµ РґРѕР»Р¶РЅС‹ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°РЅРЅС‹Рј РІ Р·Р°РїСЂРѕСЃРµ\", function () {\r",
                   "    pm.expect(target.id).to.not.be.null;\r",
-                  "    pm.expect(target.title).equal(source.title, 'Название события должно соответствовать названию события в запросе');\r",
-                  "    pm.expect(target.annotation).equal(source.annotation, 'Аннотация события должна соответствовать аннотации события в запросе');\r",
-                  "    pm.expect(target.eventDate).equal(source.eventDate, 'Дата проведения события должна соответствовать дате проведения события в запросе');\r",
-                  "    pm.expect(target.description).equal(source.description, 'Описание события должно соответствовать описание события в запросе');\r",
-                  "    pm.expect(target.location.lat.toString()).equal(source.location.lat.toString(), 'Широта локации проведения события должна соответствовать широте локации проведения события в запросе');\r",
-                  "    pm.expect(target.location.lon.toString()).equal(source.location.lon.toString(), 'Долгота локации проведения события должна соответствовать долготе локации проведения события в запросе');\r",
-                  "    pm.expect(target.commentsPossibility).to.not.be.null;\r",
+                  "    pm.expect(target.title).equal(source.title, 'РќР°Р·РІР°РЅРёРµ СЃРѕР±С‹С‚РёСЏ РґРѕР»Р¶РЅРѕ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РЅР°Р·РІР°РЅРёСЋ СЃРѕР±С‹С‚РёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
+                  "    pm.expect(target.annotation).equal(source.annotation, 'РђРЅРЅРѕС‚Р°С†РёСЏ СЃРѕР±С‹С‚РёСЏ РґРѕР»Р¶РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ Р°РЅРЅРѕС‚Р°С†РёРё СЃРѕР±С‹С‚РёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
+                  "    pm.expect(target.eventDate).equal(source.eventDate, 'Р”Р°С‚Р° РїСЂРѕРІРµРґРµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ РґРѕР»Р¶РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°С‚Рµ РїСЂРѕРІРµРґРµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
+                  "    pm.expect(target.description).equal(source.description, 'РћРїРёСЃР°РЅРёРµ СЃРѕР±С‹С‚РёСЏ РґРѕР»Р¶РЅРѕ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РѕРїРёСЃР°РЅРёРµ СЃРѕР±С‹С‚РёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
+                  "    pm.expect(target.location.lat.toString()).equal(source.location.lat.toString(), 'РЁРёСЂРѕС‚Р° Р»РѕРєР°С†РёРё РїСЂРѕРІРµРґРµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ РґРѕР»Р¶РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ С€РёСЂРѕС‚Рµ Р»РѕРєР°С†РёРё РїСЂРѕРІРµРґРµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
+                  "    pm.expect(target.location.lon.toString()).equal(source.location.lon.toString(), 'Р”РѕР»РіРѕС‚Р° Р»РѕРєР°С†РёРё РїСЂРѕРІРµРґРµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ РґРѕР»Р¶РЅР° СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґРѕР»РіРѕС‚Рµ Р»РѕРєР°С†РёРё РїСЂРѕРІРµРґРµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -1055,13 +1097,13 @@
           "response": []
         },
         {
-          "name": "Получить все комментарии по событию без комментариев",
+          "name": "РџРѕР»СѓС‡РёС‚СЊ РІСЃРµ РєРѕРјРјРµРЅС‚Р°СЂРёРё РїРѕ СЃРѕР±С‹С‚РёСЋ Р±РµР· РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 200 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.be.ok;    \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -1070,7 +1112,7 @@
                   "const source = pm.collectionVariables.get('response');\r",
                   "const target = pm.response.json();\r",
                   "\r",
-                  "pm.test(\"Ответ должен содержать пустой массив\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РїСѓСЃС‚РѕР№ РјР°СЃСЃРёРІ\", function () {\r",
                   "    pm.expect(target).to.have.length(0);\r",
                   "});"
                 ],
@@ -1082,15 +1124,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/users/1/comments?eventId=2",
+              "raw": "http://localhost:8080/comments?eventId=2",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
-                "users",
-                "1",
                 "comments"
               ],
               "query": [
@@ -1104,13 +1144,13 @@
           "response": []
         },
         {
-          "name": "Получить все комментарии по несуществующему событию",
+          "name": "РџРѕР»СѓС‡РёС‚СЊ РІСЃРµ РєРѕРјРјРµРЅС‚Р°СЂРёРё РїРѕ РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРјСѓ СЃРѕР±С‹С‚РёСЋ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 404 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(404);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -1124,15 +1164,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/users/1/comments?eventId=333",
+              "raw": "http://localhost:8080/comments?eventId=333",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
-                "users",
-                "1",
                 "comments"
               ],
               "query": [
@@ -1148,16 +1186,16 @@
       ]
     },
     {
-      "name": "Удаление",
+      "name": "РЈРґР°Р»РµРЅРёРµ",
       "item": [
         {
-          "name": "Удаление комментария не автором",
+          "name": "РЈРґР°Р»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ РЅРµ Р°РІС‚РѕСЂРѕРј",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 409 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(409);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -1188,13 +1226,13 @@
           "response": []
         },
         {
-          "name": "Удаление комментария автором",
+          "name": "РЈРґР°Р»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ Р°РІС‚РѕСЂРѕРј",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 204 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 204 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(204);  \r",
                   "});"
                 ],
@@ -1223,13 +1261,13 @@
           "response": []
         },
         {
-          "name": "Получить все комментарии по событию без комментариев",
+          "name": "РџРѕР»СѓС‡РёС‚СЊ РІСЃРµ РєРѕРјРјРµРЅС‚Р°СЂРёРё РїРѕ СЃРѕР±С‹С‚РёСЋ Р±РµР· РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 200 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.be.ok;    \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -1238,7 +1276,7 @@
                   "const source = pm.collectionVariables.get('response');\r",
                   "const target = pm.response.json();\r",
                   "\r",
-                  "pm.test(\"Ответ должен содержать пустой массив\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РїСѓСЃС‚РѕР№ РјР°СЃСЃРёРІ\", function () {\r",
                   "    pm.expect(target).to.have.length(0);\r",
                   "});"
                 ],
@@ -1250,15 +1288,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/users/1/comments?eventId=1",
+              "raw": "http://localhost:8080/comments?eventId=1",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
-                "users",
-                "1",
                 "comments"
               ],
               "query": [
@@ -1272,13 +1308,13 @@
           "response": []
         },
         {
-          "name": "Добавление комментария к опубликованному событию",
+          "name": "Р”РѕР±Р°РІР»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ Рє РѕРїСѓР±Р»РёРєРѕРІР°РЅРЅРѕРјСѓ СЃРѕР±С‹С‚РёСЋ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 201 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(201);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -1287,17 +1323,18 @@
                   "const source = JSON.parse(pm.request.body.raw);\r",
                   "const target = pm.response.json();\r",
                   "\r",
-                  "pm.test(\"Комментарий должен содержать поля: id, content, author, event, created\", function () {\r",
+                  "pm.test(\"РљРѕРјРјРµРЅС‚Р°СЂРёР№ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РїРѕР»СЏ: id, content, author, event, created, updated\", function () {\r",
                   "pm.expect(target).to.have.property('id');\r",
                   "pm.expect(target).to.have.property('content');\r",
                   "pm.expect(target).to.have.property('author');\r",
                   "pm.expect(target).to.have.property('event');\r",
                   "pm.expect(target).to.have.property('created');\r",
+                  "pm.expect(target).to.have.property('updated');\r",
                   "});\r",
                   "\r",
-                  "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+                  "pm.test(\"Р”Р°РЅРЅС‹Рµ РІ РѕС‚РІРµС‚Рµ РґРѕР»Р¶РЅС‹ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ РґР°РЅРЅС‹Рј РІ Р·Р°РїСЂРѕСЃРµ\", function () {\r",
                   "    pm.expect(target.id).to.not.be.null;\r",
-                  "    pm.expect(target.content).equal(source.content, 'Содержание комментария должно соответствовать содержанию комментария в запросе');\r",
+                  "    pm.expect(target.content).equal(source.content, 'РЎРѕРґРµСЂР¶Р°РЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ РґРѕР»Р¶РЅРѕ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ СЃРѕРґРµСЂР¶Р°РЅРёСЋ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ РІ Р·Р°РїСЂРѕСЃРµ');\r",
                   "});"
                 ],
                 "type": "text/javascript"
@@ -1339,13 +1376,13 @@
           "response": []
         },
         {
-          "name": "Удаление комментария администратором",
+          "name": "РЈРґР°Р»РµРЅРёРµ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂРѕРј",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 204 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 204 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(204);  \r",
                   "});"
                 ],
@@ -1357,7 +1394,7 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/admin/events/1/comments/2",
+              "raw": "http://localhost:8080/admin/comments/2",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -1365,8 +1402,6 @@
               "port": "8080",
               "path": [
                 "admin",
-                "events",
-                "1",
                 "comments",
                 "2"
               ]
@@ -1375,13 +1410,13 @@
           "response": []
         },
         {
-          "name": "Получить все комментарии по событию без комментариев",
+          "name": "РџРѕР»СѓС‡РёС‚СЊ РІСЃРµ РєРѕРјРјРµРЅС‚Р°СЂРёРё РїРѕ СЃРѕР±С‹С‚РёСЋ Р±РµР· РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 200 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.be.ok;    \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -1390,7 +1425,7 @@
                   "const source = pm.collectionVariables.get('response');\r",
                   "const target = pm.response.json();\r",
                   "\r",
-                  "pm.test(\"Ответ должен содержать пустой массив\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РїСѓСЃС‚РѕР№ РјР°СЃСЃРёРІ\", function () {\r",
                   "    pm.expect(target).to.have.length(0);\r",
                   "});"
                 ],
@@ -1402,15 +1437,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/users/1/comments?eventId=1",
+              "raw": "http://localhost:8080/comments?eventId=1",
               "protocol": "http",
               "host": [
                 "localhost"
               ],
               "port": "8080",
               "path": [
-                "users",
-                "1",
                 "comments"
               ],
               "query": [
@@ -1424,13 +1457,13 @@
           "response": []
         },
         {
-          "name": "Удаление несуществующего комментария",
+          "name": "РЈРґР°Р»РµРЅРёРµ РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ",
           "event": [
             {
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+                  "pm.test(\"РћС‚РІРµС‚ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РєРѕРґ СЃС‚Р°С‚СѓСЃР° 404 Рё РґР°РЅРЅС‹Рµ РІ С„РѕСЂРјР°С‚Рµ json\", function () {\r",
                   "    pm.response.to.have.status(404);  \r",
                   "    pm.response.to.be.withBody;\r",
                   "    pm.response.to.be.json;\r",
@@ -1444,7 +1477,7 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/admin/events/1/comments/2",
+              "raw": "http://localhost:8080/admin/comments/2",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -1452,8 +1485,6 @@
               "port": "8080",
               "path": [
                 "admin",
-                "events",
-                "1",
                 "comments",
                 "2"
               ]

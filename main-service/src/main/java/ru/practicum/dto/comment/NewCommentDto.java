@@ -5,17 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CommentDto {
-    private LocalDateTime created;
-    private LocalDateTime updated;
-    private Long event;
-    private Long id;
-    private Long author;
+public class NewCommentDto {
+    @NotBlank
+    @Size(min = 1, max = 2000)
     private String content;
 }
