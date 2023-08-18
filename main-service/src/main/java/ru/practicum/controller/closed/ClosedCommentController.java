@@ -29,7 +29,7 @@ public class ClosedCommentController {
     }
 
     @PatchMapping("/{commentId}")
-    public CommentDto updateRequest(@PathVariable long userId,
+    public CommentDto updateComment(@PathVariable long userId,
                                     @PathVariable long commentId,
                                     @RequestBody @Valid NewCommentDto newCommentDto) {
         log.info("Updating comment");
