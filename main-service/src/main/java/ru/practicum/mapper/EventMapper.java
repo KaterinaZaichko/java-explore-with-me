@@ -23,7 +23,8 @@ public class EventMapper {
                 .location(LocationMapper.toLocation(newEventDto.getLocation()))
                 .paid(newEventDto.isPaid())
                 .participantLimit(newEventDto.getParticipantLimit())
-                .requestModeration(newEventDto.getRequestModeration() != null ? newEventDto.getRequestModeration() : true)
+                .requestModeration(newEventDto.getRequestModeration() != null
+                        ? newEventDto.getRequestModeration() : true)
                 .state(State.PENDING)
                 .title(newEventDto.getTitle())
                 .build();

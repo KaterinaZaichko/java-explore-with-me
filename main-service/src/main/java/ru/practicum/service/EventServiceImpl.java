@@ -15,10 +15,7 @@ import ru.practicum.mapper.EventMapper;
 import ru.practicum.mapper.LocationMapper;
 import ru.practicum.mapper.ParticipationRequestMapper;
 import ru.practicum.model.*;
-import ru.practicum.repository.CategoryRepository;
-import ru.practicum.repository.EventRepository;
-import ru.practicum.repository.ParticipationRequestRepository;
-import ru.practicum.repository.UserRepository;
+import ru.practicum.repository.*;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -31,6 +28,7 @@ public class EventServiceImpl implements EventService {
     private final CategoryRepository categoryRepository;
     private final UserRepository userRepository;
     private final ParticipationRequestRepository participationRequestRepository;
+    private final CommentRepository commentRepository;
     private final StatsClient statsClient;
     private ObjectMapper objectMapper;
 
@@ -42,10 +40,12 @@ public class EventServiceImpl implements EventService {
         List<Event> events = eventRepository.findAllByInitiator(initiator, pageWithSomeElements);
         List<EventShortDto> eventShortDtos = new ArrayList<>();
         Map<Event, Long> confirmedRequests = getConfirmedRequestsCount(events);
+        Map<Event, Long> comments = getCommentsCount(events);
         Map<String, Long> views = getViews(events);
         for (Event event : events) {
             EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
             eventShortDto.setConfirmedRequests(confirmedRequests.getOrDefault(event, 0L));
+            eventShortDto.setComments(comments.getOrDefault(event, 0L));
             eventShortDto.setViews(views.get("/events/" + event.getId()));
             eventShortDtos.add(eventShortDto);
         }
@@ -78,6 +78,7 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository.findByIdAndInitiator(eventId, initiator);
         EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
         eventFullDto.setConfirmedRequests(getConfirmedRequestsCount(List.of(event)).getOrDefault(event, 0L));
+        eventFullDto.setComments(getCommentsCount(List.of(event)).getOrDefault(event, 0L));
         eventFullDto.setViews(getViews(List.of(event)).get("/events/" + event.getId()));
         return eventFullDto;
     }
@@ -245,10 +246,12 @@ public class EventServiceImpl implements EventService {
                 usersList, statesList, categoriesList, rangeStart, rangeEnd, pageWithSomeElements);
         List<EventFullDto> eventFullDtos = new ArrayList<>();
         Map<Event, Long> confirmedRequests = getConfirmedRequestsCount(events);
+        Map<Event, Long> comments = getCommentsCount(events);
         Map<String, Long> views = getViews(events);
         for (Event event : events) {
             EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
             eventFullDto.setConfirmedRequests(confirmedRequests.getOrDefault(event, 0L));
+            eventFullDto.setComments(comments.getOrDefault(event, 0L));
             eventFullDto.setViews(views.get("/events/" + event.getId()));
             eventFullDtos.add(eventFullDto);
         }
@@ -348,12 +351,14 @@ public class EventServiceImpl implements EventService {
                 text, categoriesList, paid, rangeStart, rangeEnd, pageWithSomeElements);
         List<EventShortDto> eventShortDtos = new ArrayList<>();
         Map<Event, Long> confirmedRequests = getConfirmedRequestsCount(events);
+        Map<Event, Long> comments = getCommentsCount(events);
         Map<String, Long> views = getViews(events);
         if (onlyAvailable.equals(true)) {
             for (Event event : events) {
                 if (event.getParticipantLimit() < confirmedRequests.get(event)) {
                     EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
                     eventShortDto.setConfirmedRequests(confirmedRequests.getOrDefault(event, 0L));
+                    eventShortDto.setComments(comments.getOrDefault(event, 0L));
                     eventShortDto.setViews(views.get("/events/" + event.getId()));
                     eventShortDtos.add(eventShortDto);
                 }
@@ -362,6 +367,7 @@ public class EventServiceImpl implements EventService {
             for (Event event : events) {
                 EventShortDto eventShortDto = EventMapper.toEventShortDto(event);
                 eventShortDto.setConfirmedRequests(confirmedRequests.getOrDefault(event, 0L));
+                eventShortDto.setComments(comments.getOrDefault(event, 0L));
                 eventShortDto.setViews(views.get("/events/" + event.getId()));
                 eventShortDtos.add(eventShortDto);
             }
@@ -384,6 +390,7 @@ public class EventServiceImpl implements EventService {
         }
         EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
         eventFullDto.setConfirmedRequests(getConfirmedRequestsCount(List.of(event)).getOrDefault(event, 0L));
+        eventFullDto.setComments(getCommentsCount(List.of(event)).getOrDefault(event, 0L));
         eventFullDto.setViews(getViews(List.of(event)).get("/events/" + event.getId()));
         return eventFullDto;
     }
@@ -392,6 +399,12 @@ public class EventServiceImpl implements EventService {
         return participationRequestRepository.findAllByEventInAndStatus(events, State.CONFIRMED).stream()
                 .collect(Collectors.toMap(
                         ConfirmedRequestsCount::getEvent, ConfirmedRequestsCount::getCountConfirmedRequests));
+    }
+
+    private Map<Event, Long> getCommentsCount(List<Event> events) {
+        return commentRepository.findAllByEventIn(events).stream()
+                .collect(Collectors.toMap(
+                        CommentsCount::getEvent, CommentsCount::getCountComments));
     }
 
     private Map<String, Long> getViews(List<Event> events) {
